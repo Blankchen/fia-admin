@@ -3,6 +3,53 @@ export const PAGES_MENU = [
     path: 'pages',
     children: [
       {
+        path: 'fia',  // path for our page
+        data: { // custom menu declaration
+          menu: {
+            title: 'My identity', // menu title
+            icon: 'ion-medkit', // menu icon
+            pathMatch: 'prefix', // use it if item children not displayed in menu
+            selected: false,
+            expanded: false,
+            order: 0
+          }
+        },
+        children: [
+          {
+            path: 'medication',
+            data: {
+              menu: {
+                title: 'Medication',
+              }
+            }
+          },
+          {
+            path: 'pharmacy',
+            data: {
+              menu: {
+                title: 'Pharmacy',
+              }
+            }
+          },
+          {
+            path: 'hospital',
+            data: {
+              menu: {
+                title: 'Hospital',
+              }
+            }
+          },
+          {
+            path: 'health-insurance',
+            data: {
+              menu: {
+                title: 'Health Insurance',
+              }
+            }
+          }
+        ]
+      },
+      {
         path: 'dashboard',
         data: {
           menu: {
