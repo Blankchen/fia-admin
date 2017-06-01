@@ -3,6 +3,12 @@
 
 :host /deep/ {
 
+  // Sign in / Sign up
+  .sign-btn {
+    float: right;
+    margin-top: 7px;
+  }
+
   .page-top {
     background-color: $sidebar;
     position: fixed;

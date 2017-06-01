@@ -9,6 +9,9 @@
   </div>
 
   <div class="user-profile clearfix">
+    <!-- Ng if with login -->
+    <button routerLink="/login" class="btn btn-default sign-btn">Sign in / Sign up</button>
+
     <div class="dropdown al-user-profile">
       <a class="profile-toggle-link dropdown-toggle" id="user-profile-dd" data-toggle="dropdown" aria-expanded="false">
         <img src="{{ ( 'Nasta' | baProfilePicture ) }}">
@@ -19,6 +22,7 @@
         <li class="dropdown-item"><a href class="signout"><i class="fa fa-power-off"></i>Sign out</a></li>
       </ul>
     </div>
+
     <ba-msg-center></ba-msg-center>
   </div>
 </div>

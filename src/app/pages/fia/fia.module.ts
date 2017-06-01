@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NgaModule } from '../../theme/nga.module';
 
 import { FiaComponent } from './fia.component';
 import { routing } from './fia.routing';
@@ -14,6 +15,7 @@ import { Pharmacy } from './components/pharmacy';
   imports: [
     CommonModule,
     FormsModule,
+    NgaModule,
     routing
   ],
   declarations: [

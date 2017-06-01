@@ -12,23 +12,23 @@ export class PieChartService {
     return [
       {
         color: pieColor,
-        description: 'dashboard.new_visits',
-        stats: '57,820',
+        description: '健保給付額',
+        stats: '$ 57,820',
         icon: 'person',
       }, {
         color: pieColor,
-        description: 'dashboard.purchases',
+        description: '保險給付額',
         stats: '$ 89,745',
         icon: 'money',
       }, {
         color: pieColor,
-        description: 'dashboard.active_users',
-        stats: '178,391',
+        description: '收取給付額',
+        stats: '$ 178,391',
         icon: 'face',
       }, {
         color: pieColor,
-        description: 'dashboard.returned',
-        stats: '32,592',
+        description: '電子錢包',
+        stats: '$ 32,592',
         icon: 'refresh',
       }
     ];

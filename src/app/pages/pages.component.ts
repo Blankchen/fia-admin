@@ -16,15 +16,17 @@ import { PAGES_MENU } from './pages.menu';
       </div>
     </div>
     <footer class="al-footer clearfix">
-      <div class="al-footer-right" translate>{{'general.created_with'}} <i class="ion-heart"></i></div>
+      <!-- <div class="al-footer-right" translate>{{'general.created_with'}} <i class="ion-heart"></i></div> -->
       <div class="al-footer-main clearfix">
-        <div class="al-copy">&copy; <a href="http://akveo.com" translate>{{'general.akveo'}}</a> 2016</div>
+        <div class="al-copy">&copy; Fusions360 IBM Asia University 2017</div>
+        <!--
         <ul class="al-share clearfix">
           <li><i class="socicon socicon-facebook"></i></li>
           <li><i class="socicon socicon-twitter"></i></li>
           <li><i class="socicon socicon-google"></i></li>
           <li><i class="socicon socicon-github"></i></li>
         </ul>
+        -->
       </div>
     </footer>
     <ba-back-top position="200"></ba-back-top>

@@ -1,3 +1,46 @@
+ <div class="row">
+    <div class="col-lg-12 col-sm-12 col-12">
+
+      <ba-card baCardClass="banner-column-panel">
+        <div class="banner">
+          <div class="large-banner-wrapper">
+            <img src="{{ ( 'app/typography/banner.png' | baAppPicture ) }}" alt=""/>
+          </div>
+          <div class="banner-text-wrapper">
+            <div class="banner-text">
+              <h1>Simple Banner Text</h1>
+
+              <p>Lorem ipsum dolor sit amet</p>
+
+              <p>Odio amet viverra rutrum</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2>Columns</h2>
+
+          <div class="row">
+            <div class="col-sm-12">
+              <div class="img-wrapper"><img src="{{ ( 'app/typography/typo03.png' | baAppPicture ) }}" alt="" title=""/>
+              </div>
+              <p>Vel elit, eros elementum, id lacinia, duis non ut ut tortor blandit. Mauris <a
+                href>dapibus</a> magna rutrum. Ornare neque suspendisse <a
+                href>phasellus wisi</a>, quam cras pede rutrum suspendisse, <a
+                href>felis amet eu</a>. Congue magna elit quisque quia, nullam justo sagittis,
+                ante erat libero placerat, proin condimentum consectetuer lacus. Velit condimentum velit, sed
+                penatibus
+                arcu nulla.</p>
+            </div>
+          </div>
+        </div>
+
+      </ba-card>
+    </div>
+
+
+ </div>
+
 <div class="row">
   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
     <pie-chart></pie-chart>
@@ -5,18 +48,23 @@
 </div>
 
 <div class="row">
-  <ba-card class="col-xlg-6 col-xl-6 col-lg-12 col-sm-12 col-12"
+  <!--<ba-card class="col-xlg-6 col-xl-6 col-lg-12 col-sm-12 col-12"
                      title="dashboard.acquisition_channels" baCardClass="traffic-panel medium-card">
     <traffic-chart></traffic-chart>
+  </ba-card>-->
+
+  <ba-card class="col-xlg-8 col-xl-12 col-lg-12 col-md-7 col-sm-12 col-12"
+            title="健保收支情形" baCardClass="medium-card">
+    <line-chart></line-chart>
   </ba-card>
 
-  <ba-card class="col-xlg-6 col-xl-6 col-lg-12 col-sm-12 col-12"
+  <!--<ba-card class="col-xlg-6 col-xl-6 col-lg-12 col-sm-12 col-12"
            title="dashboard.users_by_country" baCardClass="medium-card">
     <users-map></users-map>
-  </ba-card>
+  </ba-card>-->
 </div>
 
-<div class="row">
+<!--<div class="row">
   <div class="col-xlg-9 col-xl-6 col-lg-6  col-md-12 col-sm-12 col-12">
     <div class="row">
       <ba-card class="col-xlg-8 col-xl-12 col-lg-12 col-md-7 col-sm-12 col-12"
@@ -37,14 +85,14 @@
     </ba-card>
   </div>
 
-</div>
+</div>-->
 
 <div class="row shift-up">
-  <ba-card class="col-xlg-3 col-lg-6 col-md-12 col-sm-12 col-12" title="dashboard.todo_list"
+  <ba-card class="col-xlg-3 col-lg-6 col-md-12 col-sm-12 col-12" title="我的歷史處方箋"
            baCardClass="xmedium-card feed-comply-panel with-scroll todo-panel">
     <todo></todo>
   </ba-card>
-  <ba-card class="col-xlg-6 col-lg-6 col-md-12 col-sm-12 col-12" title="dashboard.calendar"
+  <ba-card class="col-xlg-6 col-lg-6 col-md-12 col-sm-12 col-12" title="我的領藥紀錄"
            baCardClass="xmedium-card feed-comply-panel with-scroll calendar-panel">
     <calendar></calendar>
   </ba-card>
