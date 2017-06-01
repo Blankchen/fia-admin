@@ -18,15 +18,27 @@
       <ba-card baCardClass="banner-column-panel">
         <div class="banner">
           <div class="large-banner-wrapper">
-            <img src="{{ ( 'app/typography/banner.png' | baAppPicture ) }}" alt=""/>
-          </div>
-          <div class="banner-text-wrapper">
-            <div class="banner-text">
-              <h1>Simple Banner Text</h1>
+            <!-- ngb-carousel -->
+            <ngb-carousel>
+              <ng-template ngbSlide>
+                <img src="https://lorempixel.com/900/500?r=1" alt="Random first slide">
+              </ng-template>
+              <ng-template ngbSlide>
+                <img src="https://lorempixel.com/900/500?r=2" alt="Random second slide">
+              </ng-template>
+              <ng-template ngbSlide>
+                <img src="https://lorempixel.com/900/500?r=3" alt="Random third slide">
+              </ng-template>
+            </ngb-carousel>
+            <!--<img src="assets/img/health1.jpg" alt=""/>-->
+            <div class="carousel-caption banner-text-wrapper">
+              <div class="banner-text">
+                <h1>Simple Banner Text</h1>
 
-              <p>Lorem ipsum dolor sit amet</p>
+                <p>Lorem ipsum dolor sit amet</p>
 
-              <p>Odio amet viverra rutrum</p>
+                <p>Odio amet viverra rutrum</p>
+              </div>
             </div>
           </div>
         </div>
@@ -36,7 +48,7 @@
 
           <div class="row">
             <div class="col-sm-12">
-              <div class="img-wrapper"><img src="{{ ( 'app/typography/typo03.png' | baAppPicture ) }}" alt="" title=""/>
+              <div class="img-wrapper"><img src="assets/img/health3.jpg" alt="" title=""/>
               </div>
               <p>Vel elit, eros elementum, id lacinia, duis non ut ut tortor blandit. Mauris <a
                 href>dapibus</a> magna rutrum. Ornare neque suspendisse <a
@@ -46,6 +58,17 @@
                 penatibus
                 arcu nulla.</p>
             </div>
+
+            <div class="col-sm-6">
+              <div class="img-wrapper"><img src="assets/img/health2.jpg" alt="" title=""/>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="img-wrapper"><img src="assets/img/health4.jpg" alt="" title=""/>
+              </div>
+            </div>
+
           </div>
         </div>
 
