@@ -9,10 +9,7 @@
   </div>
 
   <div class="user-profile clearfix">
-    <!-- Ng if with login -->
-    <button routerLink="/login" class="btn btn-default sign-btn">Sign in / Sign up</button>
-
-    <div class="dropdown al-user-profile">
+    <!--<div class="dropdown al-user-profile">
       <a class="profile-toggle-link dropdown-toggle" id="user-profile-dd" data-toggle="dropdown" aria-expanded="false">
         <img src="{{ ( 'Nasta' | baProfilePicture ) }}">
       </a>
@@ -21,8 +18,56 @@
         <li class="dropdown-item"><a href><i class="fa fa-cog"></i>Settings</a></li>
         <li class="dropdown-item"><a href class="signout"><i class="fa fa-power-off"></i>Sign out</a></li>
       </ul>
+    </div>-->
+    <div class="pull-right">
+      <button routerLink="/login" class="btn btn-default sign-btn">Sign in / Sign up</button>
+    </div>
+
+    <div class="dropdown lte-user-profile">
+      <!-- Ng if with login -->
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+        <img src="{{ ( 'Nasta' | baProfilePicture ) }}" class="user-image" alt="User Image">
+        <span class="hidden-xs">Alexander Pierce</span>
+      </a>
+
+      <ul class="dropdown-menu">
+        <!-- User image -->
+        <li class="user-header">
+          <img src="{{ ( 'Nasta' | baProfilePicture ) }}" class="img-circle" alt="User Image">
+          <p>
+            Alexander Pierce - Web Developer
+            <small>Member since Nov. 2012</small>
+          </p>
+        </li>
+        <!-- Menu Body -->
+        <li class="user-body">
+          <div class="row">
+            <div class="col-4 text-center">
+              <a href="#">Followers</a>
+            </div>
+            <div class="col-4 text-center">
+              <a href="#">Sales</a>
+            </div>
+            <div class="col-4 text-center">
+              <a href="#">Friends</a>
+            </div>
+          </div>
+          <!-- /.row -->
+        </li>
+        <!-- Menu Footer-->
+        <li class="user-footer">
+          <div class="pull-left">
+            <button href="#" class="btn btn-primary">Profile</button>
+          </div>
+          <div class="pull-right">
+            <button href="#" class="btn btn-primary">Sign out</button>
+          </div>
+        </li>
+      </ul>
     </div>
 
     <ba-msg-center></ba-msg-center>
+
+
   </div>
 </div>
