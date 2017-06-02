@@ -8,6 +8,26 @@ import {GlobalState} from '../../../global.state';
   styleUrls: ['./baPageTop.scss']
 })
 export class BaPageTop {
+  // roles
+  roles: any = [
+    {
+      name: '病人',
+      define: '患者 - 是指醫療服務的接受者，需要醫生和護理人員進行治療的人',
+      path: 'assets/img/SVG/39.svg'
+    },
+    {
+      name: '藥劑師',
+      define: '藥師 - 是提供藥物知識及藥事服務的專業人員',
+      path: 'assets/img/SVG/06.svg'
+    },
+    {
+      name: '醫師',
+      define: '醫生 - 又稱醫師，在中國古代稱大夫或郎中',
+      path: 'assets/img/SVG/49.svg'
+    }
+  ];
+  // cuurent roles index
+  currentRole: number = 0;
 
   public isScrolled:boolean = false;
   public isMenuCollapsed:boolean = false;
@@ -26,5 +46,10 @@ export class BaPageTop {
 
   public scrolledChanged(isScrolled) {
     this.isScrolled = isScrolled;
+  }
+
+  // set current role
+  switchRole(index: number) {
+    this.currentRole = index;
   }
 }

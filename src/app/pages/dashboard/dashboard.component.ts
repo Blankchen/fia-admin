@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'dashboard',
@@ -10,7 +10,7 @@ export class Dashboard {
    * 50 icons overview in assets/img/SVG-README.svg
    * http://www.streamlineicons.com/
    */
-  streamlineIcon: any = [
+  streamlineIcons: any = [
     {
       name: '交易',
       path: 'assets/img/SVG/03.svg'
@@ -48,8 +48,13 @@ export class Dashboard {
       path: 'assets/img/SVG/49.svg'
     }
   ];
+  // ng-carousel
+  carouselImages: any = [];
 
   constructor() {
+    for (let i = 1; i <= 7; i++) {
+      this.carouselImages.push(`assets/img/health${i}.jpg`);
+    }
   }
 
 }

@@ -3,7 +3,7 @@
     <div class="col-md-6">
       <ba-card title="Kameleon SVG Icons" baCardClass="with-scroll">
         <div class="row clearfix">
-          <div class="kameleon-row" *ngFor="let icon of streamlineIcon">
+          <div class="kameleon-row" *ngFor="let icon of streamlineIcons">
             <div class="kameleon-icon"><img src="{{ icon.path }}"><span>{{ icon.name }}</span></div>
           </div>
         </div>
@@ -20,35 +20,27 @@
           <div class="large-banner-wrapper">
             <!-- ngb-carousel -->
             <ngb-carousel>
-              <ng-template ngbSlide>
-                <img src="https://lorempixel.com/900/500?r=1" alt="Random first slide">
-              </ng-template>
-              <ng-template ngbSlide>
-                <img src="https://lorempixel.com/900/500?r=2" alt="Random second slide">
-              </ng-template>
-              <ng-template ngbSlide>
-                <img src="https://lorempixel.com/900/500?r=3" alt="Random third slide">
+              <ng-template ngbSlide *ngFor="let image of carouselImages">
+                <img src="{{ image }}" alt="Random first slide">
               </ng-template>
             </ngb-carousel>
-            <!--<img src="assets/img/health1.jpg" alt=""/>-->
+
             <div class="carousel-caption banner-text-wrapper">
               <div class="banner-text">
-                <h1>Simple Banner Text</h1>
-
-                <p>Lorem ipsum dolor sit amet</p>
-
-                <p>Odio amet viverra rutrum</p>
+                <img class="nhi-img" src="assets/img/national-health-insurance.png" alt="">
+                <h1>行政院衛生署中央健康保險局</h1>
+                <p>Bureau of National Health Insurance,</p>
+                <p>Department of Health, Executive Yuan</p>
               </div>
             </div>
           </div>
         </div>
-
         <div class="section">
           <h2>Columns</h2>
 
           <div class="row">
-            <div class="col-sm-12">
-              <div class="img-wrapper"><img src="assets/img/health3.jpg" alt="" title=""/>
+            <div class="col-sm-6">
+              <div class="img-wrapper"><img src="{{ ( 'app/typography/typo03.png' | baAppPicture ) }}" alt="" title=""/>
               </div>
               <p>Vel elit, eros elementum, id lacinia, duis non ut ut tortor blandit. Mauris <a
                 href>dapibus</a> magna rutrum. Ornare neque suspendisse <a
@@ -58,24 +50,47 @@
                 penatibus
                 arcu nulla.</p>
             </div>
-
             <div class="col-sm-6">
-              <div class="img-wrapper"><img src="assets/img/health2.jpg" alt="" title=""/>
+              <div class="img-wrapper"><img src="{{ ( 'app/typography/typo01.png' | baAppPicture ) }}" alt="" title=""/>
               </div>
+              <p>Et suspendisse, adipiscing fringilla ornare sit ligula sed, vel nam. Interdum et justo nulla,
+                fermentum
+                lobortis purus ut eu, duis nibh dolor massa tristique elementum, nibh iste potenti risus fusce
+                aliquet
+                fusce, ullamcorper debitis primis arcu tellus vestibulum ac.</p>
             </div>
-
-            <div class="col-sm-6">
-              <div class="img-wrapper"><img src="assets/img/health4.jpg" alt="" title=""/>
-              </div>
-            </div>
-
           </div>
+
+          <div class="separator"></div>
+
+          <div class="row">
+            <div class="col-sm-4">
+              <h4>Column heading example</h4>
+              <div class="img-wrapper"><img src="{{ ( 'app/typography/typo04.png' | baAppPicture ) }}" alt=""/></div>
+              <p>Eget augue, lacus erat ante egestas scelerisque aliquam, metus molestie leo in habitasse magna
+                maecenas</p>
+              <a href class="learn-more">Learn more</a>
+            </div>
+            <div class="col-sm-4">
+              <h4>Yet another column heading example</h4>
+              <div class="img-wrapper"><img src="{{ ( 'app/typography/typo05.png' | baAppPicture ) }}" alt=""/></div>
+              <p>Augue massa et parturient, suspendisse orci nec scelerisque sit, integer nam mauris pede consequat
+                in
+                velit</p>
+              <a href class="learn-more">Learn more</a>
+            </div>
+            <div class="col-sm-4">
+              <h4>Third column heading example</h4>
+              <div class="img-wrapper"><img src="{{ ( 'app/typography/typo06.png' | baAppPicture ) }}" alt=""/></div>
+              <p>Eget turpis, tortor lobortis porttitor, vestibulum nullam vehicula aliquam</p>
+              <a href class="learn-more">Learn more</a>
+            </div>
+          </div>
+          <div class="separator"></div>
         </div>
 
       </ba-card>
     </div>
-
-
  </div>
 
 <div class="row">
@@ -124,7 +139,7 @@
 
 </div>-->
 
-<div class="row shift-up">
+<div class="row">
   <ba-card class="col-xlg-3 col-lg-6 col-md-12 col-sm-12 col-12" title="我的歷史處方箋"
            baCardClass="xmedium-card feed-comply-panel with-scroll todo-panel">
     <todo></todo>

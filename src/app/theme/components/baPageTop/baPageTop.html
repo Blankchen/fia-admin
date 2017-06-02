@@ -26,30 +26,24 @@
     <div class="dropdown lte-user-profile">
       <!-- Ng if with login -->
       <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-        <img src="{{ ( 'Nasta' | baProfilePicture ) }}" class="user-image" alt="User Image">
-        <span class="hidden-xs">Alexander Pierce</span>
+        <img src="{{ roles[currentRole].path }}" class="user-image" alt="User Image">
+        <span class="hidden-xs">{{ roles[currentRole].name }}</span>
       </a>
 
       <ul class="dropdown-menu">
         <!-- User image -->
         <li class="user-header">
-          <img src="{{ ( 'Nasta' | baProfilePicture ) }}" class="img-circle" alt="User Image">
+          <img src="{{ roles[currentRole].path }}" class="img-circle" alt="User Image">
           <p>
-            Alexander Pierce - Web Developer
-            <small>Member since Nov. 2012</small>
+            {{ roles[currentRole].define }}
+            <!--<small>Member since Nov. 2012</small>-->
           </p>
         </li>
         <!-- Menu Body -->
         <li class="user-body">
           <div class="row">
-            <div class="col-4 text-center">
-              <a href="#">Followers</a>
-            </div>
-            <div class="col-4 text-center">
-              <a href="#">Sales</a>
-            </div>
-            <div class="col-4 text-center">
-              <a href="#">Friends</a>
+            <div *ngFor="let role of roles; let i=index"  class="col-4 text-center">
+              <button (click)="switchRole(i)" class="btn btn-primary" href="#">{{ role.name }}</button>
             </div>
           </div>
           <!-- /.row -->
@@ -57,10 +51,10 @@
         <!-- Menu Footer-->
         <li class="user-footer">
           <div class="pull-left">
-            <button href="#" class="btn btn-primary">Profile</button>
+            <button href="#" class="btn btn-info">個人資料</button>
           </div>
           <div class="pull-right">
-            <button href="#" class="btn btn-primary">Sign out</button>
+            <button href="#" class="btn btn-danger">登出</button>
           </div>
         </li>
       </ul>
