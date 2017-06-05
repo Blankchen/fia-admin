@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { DashboardService } from './dashboard.service';
+import { GlobalState } from '../../global.state';
 
 @Component({
   selector: 'dashboard',
@@ -54,14 +55,24 @@ export class Dashboard {
   carouselImages: any = [];
   // table data
   peopleTableData:Array<any>;
+  // current roles (name, define, path)
+  currentRole: any = {
+    name: '患者',
+    define: '患者 - 是指醫療服務的接受者，需要醫生和護理人員進行治療的人',
+    path: 'assets/img/SVG/39.svg'
+  };
 
-  constructor(private _dashboardService: DashboardService) {
+  constructor(private _dashboardService: DashboardService, private _state: GlobalState) {
     // init ng-bootstrap carouse images
     for (let i = 1; i <= 7; i++) {
       this.carouselImages.push(`assets/img/health${i}.jpg`);
     }
     // get table data
     this.peopleTableData = _dashboardService.peopleTableData;
+    // get currentRoles
+    this._state.subscribe('menu.currentRole', (currentRole) => {
+      this.currentRole = currentRole;
+    });
   }
 
 

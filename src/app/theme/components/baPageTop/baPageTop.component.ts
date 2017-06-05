@@ -26,8 +26,8 @@ export class BaPageTop {
       path: 'assets/img/SVG/49.svg'
     }
   ];
-  // cuurent roles index
-  currentRole: number = 0;
+  // current roles (name, define, path)
+  currentRole: any;
 
   public isScrolled:boolean = false;
   public isMenuCollapsed:boolean = false;
@@ -36,6 +36,12 @@ export class BaPageTop {
     this._state.subscribe('menu.isCollapsed', (isCollapsed) => {
       this.isMenuCollapsed = isCollapsed;
     });
+    // roles
+    this._state.subscribe('menu.currentRole', (currentRole) => {
+      this.currentRole = currentRole;
+    });
+    // initial role
+    this.selectRole(this.roles[0])
   }
 
   public toggleMenu() {
@@ -49,7 +55,8 @@ export class BaPageTop {
   }
 
   // set current role
-  switchRole(index: number) {
-    this.currentRole = index;
+  selectRole(role: any) {
+    this.currentRole = role;
+    this._state.notifyDataChanged('menu.currentRole', this.currentRole);
   }
 }

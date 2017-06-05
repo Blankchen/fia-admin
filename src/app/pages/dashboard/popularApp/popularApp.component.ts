@@ -6,7 +6,11 @@ import {Component, Input} from '@angular/core';
   styleUrls: ['./popularApp.scss']
 })
 export class PopularApp {
-  @Input() userIcon: string;
+  @Input() currentRole: any;
+
+  constructor() {
+    //
+  }
 
   ngOnInit() {
   }

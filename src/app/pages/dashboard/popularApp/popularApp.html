@@ -1,7 +1,8 @@
 <div class="popular-app-img-container">
   <div class="popular-app-img text-center">
-    <img class="logo-img" src="{{ userIcon }}"/>
-    <span class="logo-text" translate>{{'dashboard.popular_app.super_app'}}</span>
+    <img class="logo-img" src="{{ currentRole.path }}"/>
+    <span class="logo-text">{{ currentRole.name }}</span>
+    {{ currentRole.define }}
   </div>
 </div>
 <div class="popular-app-cost row">
