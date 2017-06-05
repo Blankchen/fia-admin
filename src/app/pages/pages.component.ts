@@ -11,7 +11,7 @@ import { PAGES_MENU } from './pages.menu';
     <ba-page-top></ba-page-top>
     <div class="al-main" style="margin-left: 0px">
       <div class="al-content">
-        <ba-content-top></ba-content-top>
+        <!-- <ba-content-top></ba-content-top> -->
         <router-outlet></router-outlet>
       </div>
     </div>

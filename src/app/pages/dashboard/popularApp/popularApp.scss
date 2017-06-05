@@ -1,5 +1,10 @@
 @import "../../../theme/sass/conf/conf";
 
+.logo-img {
+  height: 180px;
+}
+
+
 /deep/.card.popular-app {
   &>.card-body {
     padding: 0;

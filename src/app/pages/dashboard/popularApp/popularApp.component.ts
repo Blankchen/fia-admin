@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'popular-app',
@@ -6,6 +6,7 @@ import {Component} from '@angular/core';
   styleUrls: ['./popularApp.scss']
 })
 export class PopularApp {
+  @Input() userIcon: string;
 
   ngOnInit() {
   }

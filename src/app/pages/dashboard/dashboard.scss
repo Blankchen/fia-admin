@@ -1,5 +1,6 @@
 @import '../../theme/sass/conf/conf';
 
+// header icon
 .large-banner-wrapper {
   // carousel-img
   .carousel-img {
@@ -8,20 +9,21 @@
   }
   // national health insurance image
   .banner-text {
-    padding: 220px 47px 21px;
+    // padding: 220px 47px 21px;
+    padding: 20px 47px;
     margin: 35px auto;
     .nhi-img {
       width: 200px;
       height: 200px;
-      position: absolute;
-      bottom: 135px;
-      left: 35%;
+      // position: absolute;
+      // bottom: 135px;
+      // left: 35%;
+      display: inline-block;
+      margin-bottom: 5px;
       z-index: 20;
     }
   }
 }
-
-
 
 :host /deep/ .widgets {
   @mixin icon-hover($color) {
