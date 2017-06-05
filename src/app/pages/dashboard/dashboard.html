@@ -9,6 +9,12 @@
         </div>
       </ba-card>
     </div>
+    <!--calendar-->
+    <ba-card class="col-xlg-6 col-lg-6 col-md-12 col-sm-12 col-12" title="我的領藥紀錄"
+          baCardClass="xmedium-card feed-comply-panel with-scroll calendar-panel">
+      <calendar></calendar>
+    </ba-card>
+
   </div>
 </div>
 
@@ -21,7 +27,7 @@
             <!-- ngb-carousel -->
             <ngb-carousel>
               <ng-template ngbSlide *ngFor="let image of carouselImages">
-                <img src="{{ image }}" alt="Random first slide">
+                <img class="carousel-img" src="{{ image }}" alt="Random first slide">
               </ng-template>
             </ngb-carousel>
 
@@ -139,7 +145,7 @@
 
 </div>-->
 
-<div class="row">
+<!--<div class="row">
   <ba-card class="col-xlg-3 col-lg-6 col-md-12 col-sm-12 col-12" title="我的歷史處方箋"
            baCardClass="xmedium-card feed-comply-panel with-scroll todo-panel">
     <todo></todo>
@@ -148,4 +154,17 @@
            baCardClass="xmedium-card feed-comply-panel with-scroll calendar-panel">
     <calendar></calendar>
   </ba-card>
+</div>-->
+
+<div class="row">
+  <div class="col-lg-6 col-md-12">
+    <ba-card title="Condensed Table" baCardClass="with-scroll table-panel">
+      <condensed-table [tableData]="peopleTableData"></condensed-table>
+    </ba-card>
+  </div>
+  <div class="col-lg-6 col-md-12">
+    <ba-card title="Contextual Table" baCardClass="with-scroll table-panel">
+      <contextual-table></contextual-table>
+    </ba-card>
+  </div>
 </div>

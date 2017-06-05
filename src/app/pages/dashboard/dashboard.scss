@@ -1,18 +1,26 @@
 @import '../../theme/sass/conf/conf';
 
-// national health insurance image
-.banner-text {
-  padding: 85px 260px 60px;
-
-  .nhi-img {
-    width: 200px;
-    height: 200px;
-    position: absolute;
-    bottom: 88px;
-    left: 13%;
-    z-index: 20;
+.large-banner-wrapper {
+  // carousel-img
+  .carousel-img {
+    width: initial;
+    height: 400px;
+  }
+  // national health insurance image
+  .banner-text {
+    padding: 220px 47px 21px;
+    margin: 35px auto;
+    .nhi-img {
+      width: 200px;
+      height: 200px;
+      position: absolute;
+      bottom: 135px;
+      left: 35%;
+      z-index: 20;
+    }
   }
 }
+
 
 
 :host /deep/ .widgets {

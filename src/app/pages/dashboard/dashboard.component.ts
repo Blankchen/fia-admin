@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { DashboardService } from './dashboard.service';
+
 @Component({
   selector: 'dashboard',
   styleUrls: ['./dashboard.scss'],
@@ -50,11 +52,17 @@ export class Dashboard {
   ];
   // ng-carousel
   carouselImages: any = [];
+  // table data
+  peopleTableData:Array<any>;
 
-  constructor() {
+  constructor(private _dashboardService: DashboardService) {
+    // init ng-bootstrap carouse images
     for (let i = 1; i <= 7; i++) {
       this.carouselImages.push(`assets/img/health${i}.jpg`);
     }
+    // get table data
+    this.peopleTableData = _dashboardService.peopleTableData;
   }
+
 
 }

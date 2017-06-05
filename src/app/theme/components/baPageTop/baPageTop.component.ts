@@ -11,17 +11,17 @@ export class BaPageTop {
   // roles
   roles: any = [
     {
-      name: '病人',
+      name: '患者',
       define: '患者 - 是指醫療服務的接受者，需要醫生和護理人員進行治療的人',
       path: 'assets/img/SVG/39.svg'
     },
     {
-      name: '藥劑師',
+      name: '藥師',
       define: '藥師 - 是提供藥物知識及藥事服務的專業人員',
       path: 'assets/img/SVG/06.svg'
     },
     {
-      name: '醫師',
+      name: '醫生',
       define: '醫生 - 又稱醫師，在中國古代稱大夫或郎中',
       path: 'assets/img/SVG/49.svg'
     }

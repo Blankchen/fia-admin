@@ -23,6 +23,11 @@ import { PieChartService } from './pieChart/pieChart.service';
 import { TodoService } from './todo/todo.service';
 import { TrafficChartService } from './trafficChart/trafficChart.service';
 import { UsersMapService } from './usersMap/usersMap.service';
+// table
+import { CondensedTable } from './condensedTable';
+import { ContextualTable } from './contextualTable';
+// service
+import { DashboardService } from './dashboard.service';
 
 @NgModule({
   imports: [
@@ -42,7 +47,10 @@ import { UsersMapService } from './usersMap/usersMap.service';
     Feed,
     Todo,
     Calendar,
-    Dashboard
+    Dashboard,
+    // table
+    CondensedTable,
+    ContextualTable
   ],
   providers: [
     CalendarService,
@@ -51,7 +59,9 @@ import { UsersMapService } from './usersMap/usersMap.service';
     PieChartService,
     TodoService,
     TrafficChartService,
-    UsersMapService
+    UsersMapService,
+    // service
+    DashboardService
   ]
 })
 export class DashboardModule {}
