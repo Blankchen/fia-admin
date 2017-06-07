@@ -26,8 +26,11 @@ import { UsersMapService } from './usersMap/usersMap.service';
 // table
 import { CondensedTable } from './condensedTable';
 import { ContextualTable } from './contextualTable';
+// loader
+import { Loader } from './loader';
 // service
 import { DashboardService } from './dashboard.service';
+
 
 @NgModule({
   imports: [
@@ -50,7 +53,9 @@ import { DashboardService } from './dashboard.service';
     Dashboard,
     // table
     CondensedTable,
-    ContextualTable
+    ContextualTable,
+    // loader
+    Loader
   ],
   providers: [
     CalendarService,

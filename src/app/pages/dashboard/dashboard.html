@@ -1,7 +1,28 @@
+<div class="row">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <ba-card>
+      <div class="steps">
+        <ul class="steps-container">
+          <li *ngFor="let item of progressBar; let i = index;" [ngClass]="{ 'activated': i<progressStep }" style="width: 20%;">
+            <div class="step">
+              <div class="step-image"><span></span></div>
+              <h2>{{ item.title }}</h2>
+              <span>{{ item.content }}</span>
+            </div>
+          </li>
+        </ul>
+        <div [style.width.%]="20*progressStep" class="step-bar"></div>
+      </div>
+    </ba-card>
+  </div>
+</div>
+
+
 <div class="widgets">
   <div class="row">
     <div class="col-md-6">
-      <ba-card title="我的錢包" baCardClass="with-scroll">
+      <!--SVG圖-->
+      <ba-card title="SVG圖" baCardClass="with-scroll">
         <div class="row clearfix">
           <div class="kameleon-row" *ngFor="let icon of streamlineIcons">
             <div class="kameleon-icon"><img src="{{ icon.path }}"><span>{{ icon.name }}</span></div>
@@ -9,22 +30,42 @@
         </div>
       </ba-card>
     </div>
+
+    <div class="col-md-6">
+      <!--共識節點狀態-->
+      <ba-card title="共識節點狀態" baCardClass="with-scroll">
+        <div class="row">
+          <div class="col-md-4">
+            <loader [state]="'loading'" [title]="'測試節點1'"></loader>
+          </div>
+          <div class="col-md-4">
+            <loader [state]="'success'" [title]="'測試節點2'"></loader>
+          </div>
+          <div class="col-md-4">
+            <loader [state]="'error'" [title]="'測試節點3'"></loader>
+          </div>
+        </div>
+      </ba-card>
+    </div>
+
+
     <!--calendar-->
-    <ba-card class="col-xlg-12 col-lg-12 col-md-12 col-sm-12 col-12" title="我的領藥紀錄"
-          baCardClass="xmedium-card feed-comply-panel with-scroll calendar-panel">
-        <calendar></calendar>
+    <ba-card class="col-xlg-12 col-lg-12 col-md-12 col-sm-12 col-12" title="我的領藥紀錄" baCardClass="xmedium-card feed-comply-panel with-scroll calendar-panel">
+      <calendar></calendar>
     </ba-card>
   </div>
 
   <div class="row">
     <div class="col-lg-4 col-md-12">
+      <!--我的錢包-->
       <ba-card baCardClass="popular-app medium-card">
         <popular-app [currentRole]="currentRole"></popular-app>
       </ba-card>
     </div>
     <div class="col-lg-8 col-md-12">
-      <!-- 領藥紀錄表格 -->
-      <ba-card title="領藥紀錄表格" baCardClass="with-scroll table-panel medium-card">
+      <!-- 處方箋 / 過敏資料 -->
+      <!--上傳日期、過敏內容(藥物名)、上傳醫生、上傳機構、電話、地址) (資料更新區塊鏈-->
+      <ba-card title="處方箋 / 過敏資料" baCardClass="with-scroll table-panel medium-card">
         <contextual-table></contextual-table>
       </ba-card>
     </div>
@@ -32,43 +73,43 @@
 
 </div>
 
- <div class="row">
-    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-      <pie-chart></pie-chart>
-    </div>
+<div class="row">
+  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+    <pie-chart></pie-chart>
+  </div>
 
-    <div class="col-lg-12 col-sm-12 col-12">
-      <ba-card baCardClass="banner-column-panel">
-        <div class="banner">
-          <div class="large-banner-wrapper">
-            <!-- ngb-carousel -->
-            <ngb-carousel>
-              <ng-template ngbSlide *ngFor="let image of carouselImages">
-                <img class="carousel-img" src="{{ image }}" alt="Random first slide">
-              </ng-template>
-            </ngb-carousel>
+  <div class="col-lg-12 col-sm-12 col-12">
+    <ba-card baCardClass="banner-column-panel">
+      <div class="banner">
+        <div class="large-banner-wrapper">
+          <!-- ngb-carousel -->
+          <ngb-carousel>
+            <ng-template ngbSlide *ngFor="let image of carouselImages">
+              <img class="carousel-img" src="{{ image }}" alt="Random first slide">
+            </ng-template>
+          </ngb-carousel>
 
-            <div class="carousel-caption banner-text-wrapper">
-              <div class="banner-text">
-                <img class="nhi-img" src="assets/img/national-health-insurance.png" alt="">
-                <h1>行政院衛生署中央健康保險局</h1>
-                <p>Bureau of National Health Insurance,</p>
-                <p>Department of Health, Executive Yuan</p>
-              </div>
+          <div class="carousel-caption banner-text-wrapper">
+            <div class="banner-text">
+              <img class="nhi-img" src="assets/img/national-health-insurance.png" alt="">
+              <h1>行政院衛生署中央健康保險局</h1>
+              <p>Bureau of National Health Insurance,</p>
+              <p>Department of Health, Executive Yuan</p>
             </div>
           </div>
         </div>
+      </div>
 
-        <div class="section">
-          <h2>健保收支情形</h2>
-          <line-chart></line-chart>
-          <!--<ba-card class="col-xlg-8 col-xl-12 col-lg-12 col-md-7 col-sm-12 col-12"
+      <div class="section">
+        <h2>健保收支情形</h2>
+        <line-chart></line-chart>
+        <!--<ba-card class="col-xlg-8 col-xl-12 col-lg-12 col-md-7 col-sm-12 col-12"
             title="健保收支情形" baCardClass="medium-card">
             <line-chart></line-chart>
           </ba-card>-->
 
-        </div>
-        <!--<div class="section">
+      </div>
+      <!--<div class="section">
           <h2>Columns</h2>
 
           <div class="row">
@@ -122,9 +163,9 @@
           <div class="separator"></div>
         </div>-->
 
-      </ba-card>
-    </div>
- </div>
+    </ba-card>
+  </div>
+</div>
 
 <!--<div class="row">
   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">

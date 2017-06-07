@@ -2,6 +2,18 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class DashboardService {
+// http://ip/{action}
+// Authorization: Base64(userID)
+// {
+//   "role": "doctor", // doctor, pharmacist, patient
+//   "data": {
+// }
+// {
+//   "role": "doctor", // doctor, pharmacist, patient
+//   "data": {
+//     // parameters...
+//   }
+// }
 
   peopleTableData = [
     {

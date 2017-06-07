@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 import {GlobalState} from '../../../global.state';
 
@@ -7,7 +7,7 @@ import {GlobalState} from '../../../global.state';
   templateUrl: './baPageTop.html',
   styleUrls: ['./baPageTop.scss']
 })
-export class BaPageTop {
+export class BaPageTop implements OnInit {
   // roles
   roles: any = [
     {
@@ -40,8 +40,10 @@ export class BaPageTop {
     this._state.subscribe('menu.currentRole', (currentRole) => {
       this.currentRole = currentRole;
     });
-    // initial role
-    this.selectRole(this.roles[0])
+  }
+
+  ngOnInit() {
+    this.selectRole(this.roles[0]);
   }
 
   public toggleMenu() {
@@ -59,4 +61,6 @@ export class BaPageTop {
     this.currentRole = role;
     this._state.notifyDataChanged('menu.currentRole', this.currentRole);
   }
+
+
 }

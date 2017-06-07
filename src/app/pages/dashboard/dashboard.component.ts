@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 
 import { DashboardService } from './dashboard.service';
 import { GlobalState } from '../../global.state';
+
 
 @Component({
   selector: 'dashboard',
@@ -51,16 +52,42 @@ export class Dashboard {
       path: 'assets/img/SVG/49.svg'
     }
   ];
+  // progress bar
+  progressStep: number = 1;
+  progressBar: any = [
+    {
+      title: 'Step 1',
+      content: '患者看醫生'
+    },
+    {
+      title: 'Step 2',
+      content: '醫生看病歷資料(?)與過敏資料(3的資料)，開處方箋給患者(資料更新區塊鏈)'
+    },
+    {
+      title: 'Step 3',
+      content: '患者拿到處方箋或回饋醫生更新過敏資料(上傳日期、過敏內容(藥物名)、上傳醫生、上傳機構、電話、地址) (資料更新區塊鏈)'
+    },
+    {
+      title: 'Step 4',
+      content: '患者拿處方箋找藥師拿藥，資料藉由藥師上傳到健保局(資料更新區塊鏈?)'
+    },
+    {
+      title: 'Step 5',
+      content: '患者藥物回收，健保局抽出回收者並予與獎勵(以區塊鏈發送獎金制患者錢包)'
+    },
+  ];
   // ng-carousel
   carouselImages: any = [];
   // table data
-  peopleTableData:Array<any>;
+  peopleTableData: Array<any>;
   // current roles (name, define, path)
   currentRole: any = {
     name: '患者',
     define: '患者 - 是指醫療服務的接受者，需要醫生和護理人員進行治療的人',
     path: 'assets/img/SVG/39.svg'
   };
+  @ViewChild('carousel') _carousel: ElementRef;
+
 
   constructor(private _dashboardService: DashboardService, private _state: GlobalState) {
     // init ng-bootstrap carouse images
