@@ -2,6 +2,12 @@
 @import '../../components/baMsgCenter/baMsgCenter';
 
 :host /deep/ {
+  // img fia icon
+  .fia-icon {
+    height: 55px;
+    background-color: white;
+    border-radius: 20%;
+  }
 
   // Sign in / Sign up
   .sign-btn {
