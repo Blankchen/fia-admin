@@ -3,7 +3,7 @@ import { CommonModule }  from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AppTranslationModule } from '../../app.translation.module';
 import { NgaModule } from '../../theme/nga.module';
-import { NgbCarouselModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCarouselModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { Dashboard } from './dashboard.component';
 import { routing }       from './dashboard.routing';
@@ -39,6 +39,7 @@ import { DashboardService } from './dashboard.service';
     AppTranslationModule,
     NgaModule,
     NgbCarouselModule,
+    NgbTypeaheadModule,
     routing
   ],
   declarations: [

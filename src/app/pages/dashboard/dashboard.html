@@ -49,8 +49,17 @@
       </ba-card>
     </div>
 
+    <div class="col-md-6">
+      <!--Typeahead-->
+      <ba-card title="Typeahead" baCardClass="with-scroll">
+        <label for="typeahead-basic">Search for a state:</label>
+        <input id="typeahead-basic" type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search"/>
+        <hr>
+        <pre>Model: {{ model | json }}</pre>
+      </ba-card>
+    </div>
 
-    <!--calendar-->
+    <!--calendar 日曆-->
     <ba-card class="col-xlg-12 col-lg-12 col-md-12 col-sm-12 col-12" title="我的領藥紀錄" baCardClass="xmedium-card feed-comply-panel with-scroll calendar-panel">
       <calendar></calendar>
     </ba-card>
@@ -59,15 +68,15 @@
   <div class="row">
     <div class="col-lg-4 col-md-12">
       <!--我的錢包-->
-      <ba-card baCardClass="popular-app medium-card">
+      <!--<ba-card baCardClass="popular-app medium-card">-->
+      <ba-card baCardClass="popular-app">
         <popular-app [currentRole]="currentRole"></popular-app>
       </ba-card>
     </div>
+    <!-- 處方箋 / 藥物回收 對應 日曆? -->
     <div class="col-lg-8 col-md-12">
-      <!-- 處方箋 / 過敏資料 -->
-      <!--上傳日期、過敏內容(藥物名)、上傳醫生、上傳機構、電話、地址) (資料更新區塊鏈-->
-      <ba-card title="處方箋 / 過敏資料" baCardClass="with-scroll table-panel medium-card">
-        <contextual-table></contextual-table>
+      <ba-card title="處方箋 / 藥物回收" baCardClass="with-scroll table-panel">
+        <condensed-table></condensed-table>
       </ba-card>
     </div>
   </div>

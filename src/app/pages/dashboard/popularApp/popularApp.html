@@ -1,17 +1,20 @@
 <div class="popular-app-img-container">
   <div class="popular-app-img text-center">
-    <img class="logo-img" src="{{ currentRole?.path }}"/>
-    <span class="logo-text">{{ currentRole?.name }}</span>
-    {{ currentRole?.define }}
+    <img class="logo-img" src="{{ currentRole?.path }}" />
+    <span class="logo-text">{{ currentRole?.name }}</span> {{ currentRole?.define }}
   </div>
 </div>
 <div class="popular-app-cost row">
-  <div class="col-9" translate>我的錢包</div>
+  <div class="col-9" translate>我的錢包餘額:</div>
   <div class="col-3 text-right">
     175$
   </div>
 </div>
 <div class="popular-app-info row">
+  <div class="col-12 text-center">
+    <contextual-table></contextual-table>
+  </div>
+  <!--
   <div class="col-4 text-left">
     <div class="info-label" translate>{{'dashboard.popular_app.total_visits'}}</div>
     <div>47,512</div>
@@ -23,5 +26,5 @@
   <div class="col-4 text-right">
     <div class="info-label" translate>{{'dashboard.popular_app.sales'}}</div>
     <div>2,928</div>
-  </div>
+  </div>-->
 </div>

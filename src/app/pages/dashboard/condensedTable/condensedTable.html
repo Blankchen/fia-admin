@@ -1,12 +1,18 @@
 <div class="horizontal-scroll">
+  醫師: XXX
+  姓名: 病人
+
+  處方箋樣式(標準/連續)
+  本處方可調劑幾次 還有幾次(日期陣列)
+
+  處方箋ID
+  處方箋價錢(健保 自費)
   <table class="table table-condensed">
     <thead>
     <tr>
       <th class="table-id">#</th>
-      <th>藥品代號</th>
-      <th>藥品名稱及規格</th>
-      <th>用量及用法</th>
-      <th>總數量</th>
+      <th>項目名稱</th>
+      <th>總量</th>
       <th>備註</th>
     </tr>
     </thead>
@@ -15,8 +21,6 @@
       <td class="table-id">{{ item.id }}</td>
       <td>{{ item.firstName }}</td>
       <td>{{ item.lastName }}</td>
-      <td>{{ item.username }}</td>
-      <td><a class="email-link" href="mailto:{{ item.email }}">{{ item.email }}</a></td>
       <td>
         <button ngClass="{status-button btn btn-xs btn-{{ item.status }}">{{ item.status }}</button>
       </td>
