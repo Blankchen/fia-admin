@@ -1,11 +1,12 @@
 <div class="popular-app-img-container">
   <div class="popular-app-img text-center">
     <img class="logo-img" src="{{ currentRole?.path }}" />
-    <span class="logo-text">{{ currentRole?.name }}</span> {{ currentRole?.define }}
+    <span class="logo-text">{{ currentRole?.name }}</span>
+    <h6>{{ currentRole?.define }}</h6>
   </div>
 </div>
-<div class="popular-app-cost row">
-  <div class="col-9" translate>我的錢包餘額:</div>
+<div class="popular-app-cost row" [ngClass]="{ 'fix-balance': fixBalance }">
+  <div class="col-9" translate>{{ currentRole?.name }}錢包餘額:</div>
   <div class="col-3 text-right">
     175$
   </div>

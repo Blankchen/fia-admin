@@ -44,7 +44,7 @@ export interface Medicine {
   Memo: string;
 }
 
-// Tx (給藥的時候產生) (單個就JsonObject, 多個就JsonArray)
+// Tx 給健保局 (給藥的時候產生) (單個就JsonObject, 多個就JsonArray)
 export interface Tx {
   PrescriptionID: string;
   PatientID: string;

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class DashboardService {
+  mycc: string = 'mycc';
 
   // 6/8
   // 最後實做成這樣
@@ -26,21 +27,33 @@ export class DashboardService {
 
   constructor(private http: Http) { }
 
-  createAuthorizationHeader(headers: Headers, userID: string) {
-    // Authorization: Base64(userID:userID) // 白癡檢查，要一樣
-    headers.append('Authorization', btoa(`${userID}:${userID}`));
-  }
+  // createAuthorizationHeader(headers: Headers, userID: string) {
+  //   // Authorization: Base64(userID:userID) // 白癡檢查，要一樣
+  //   headers.append('Authorization', btoa(`${userID}:${userID}`));
+  // }
 
   // get the balances include patient, doctor, pharmacist, NHI, insurance
   getBalances(): Observable<Response> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let userID = '';
-    let url = '';
-    this.createAuthorizationHeader(headers, userID);
+    let url = 'http://192.168.1.157:5000/chaincode/query';
+    // this.createAuthorizationHeader(headers, userID);
     // 可能不用 JSON.stringify(object)
-    let body = {};
+    let body = {
+      // invokeRequest
+      "queryRequest": {
+        "chaincodeID": this.mycc,
+        "fcn": "ListBalance",
+        "args": []
+      },
+      "user": {
+        "enrollID": "lukas",
+        "enrollSecret": "87654321"
+      }
+    };
     return this.http.post(url, body, { headers })
-      .map(res => res.json());
+      .map(res => JSON.parse(res.json().sdkResult));
+    // .map(data => data.sdkResult.json());
     // [
     // {
     //   "UserID": "A",
@@ -54,12 +67,23 @@ export class DashboardService {
   getPrescriptions(): Observable<Response> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let userID = '';
-    let url = '';
-    this.createAuthorizationHeader(headers, userID);
+    let url = 'http://192.168.1.157:5000/chaincode/query';
+    // this.createAuthorizationHeader(headers, userID);
     // 可能不用 JSON.stringify(object)
-    let body = {};
+    let body = {
+      "queryRequest": {
+        "chaincodeID": this.mycc,
+        "fcn": "GetPrescription",
+        // patient index 0, 1/3 Prescription
+        "args": ["pat_0_1"]
+      },
+      "user": {
+        "enrollID": "lukas",
+        "enrollSecret": "87654321"
+      }
+    };
     return this.http.post(url, body, { headers })
-      .map(res => res.json());
+      .map(res => JSON.parse(res.json().sdkResult));
     // [{
     //   "DoctorID": "dr_1",
     //   "PatientID": "pat_1",
@@ -93,12 +117,12 @@ export class DashboardService {
   getRecycles(): Observable<Response> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let userID = '';
-    let url = '';
-    this.createAuthorizationHeader(headers, userID);
+    let url = 'http://192.168.1.157:5000/chaincode/query';
+    // this.createAuthorizationHeader(headers, userID);
     // 可能不用 JSON.stringify(object)
     let body = {};
     return this.http.post(url, body, { headers })
-      .map(res => res.json());
+      .map(res => JSON.parse(res.json().sdkResult));
     // {
     //   "PharmacistID": "pharm_1",
     //   "PatientID": "pat_1",
@@ -118,12 +142,35 @@ export class DashboardService {
   getTxs(): Observable<Response> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let userID = '';
-    let url = '';
-    this.createAuthorizationHeader(headers, userID);
+    let url = 'http://192.168.1.157:5000/chaincode/query';
+    // this.createAuthorizationHeader(headers, userID);
     // 可能不用 JSON.stringify(object)
-    let body = {};
+    let body = {
+      "queryRequest": {
+        "chaincodeID": this.mycc,
+        "fcn": "ListTx",
+        "args": ["pharm_0", "pat_0", "", "", "", ""]
+      },
+      "user": {
+        "enrollID": "lukas",
+        "enrollSecret": "87654321"
+      }
+    };
+    // {
+    //   "queryRequest":{
+    //   	"chaincodeID":"mycc",
+    // 	"fcn":"ListTx",
+    // 	"args":[""]
+    //   },
+    //   "user":{
+    // 	 "enrollID":"lukas",
+    // 	 "enrollSecret":"123455"
+    //   }
+    // }
     return this.http.post(url, body, { headers })
-      .map(res => res.json());
+      .map(res => JSON.parse(res.json().sdkResult));
+    // HealthInsurancePrice <= trend chart
+
     // [{
     //   "PrescriptionID": "pres_1",
     //   "PatientID": "pat_1",
@@ -134,5 +181,8 @@ export class DashboardService {
     //   "CreateTime": "2017-06-15T12:59:59.000+0800"
     // },...]
   }
+
+
+
 
 }

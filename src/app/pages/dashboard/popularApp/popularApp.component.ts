@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import { Component, Input, HostListener, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'popular-app',
@@ -7,11 +7,20 @@ import {Component, Input} from '@angular/core';
 })
 export class PopularApp {
   @Input() currentRole: any;
+  fixBalance: boolean = false;
 
   constructor() {
     //
   }
 
-  ngOnInit() {
+  @HostListener('window:scroll')
+  _onWindowScroll(): void {
+    // console.log('----', window.scrollY);
+    if (window.scrollY > 600) {
+      this.fixBalance = true;
+    } else {
+      this.fixBalance = false;
+    }
   }
+
 }

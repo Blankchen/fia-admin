@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, OnInit } from '@angular/core';
 
 import { DashboardService } from './dashboard.service';
 import { GlobalState } from '../../global.state';
@@ -14,7 +14,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
   styleUrls: ['./dashboard.scss'],
   templateUrl: './dashboard.html'
 })
-export class Dashboard {
+export class Dashboard implements OnInit{
   /**
    * 50 icons overview in assets/img/SVG-README.svg
    * http://www.streamlineicons.com/
@@ -58,37 +58,61 @@ export class Dashboard {
     }
   ];
   // progress bar
+  progressWidth: number = 33; // total*this = 100%
   progressStep: number = 1;
   progressBar: any = [
     {
-      title: 'Step 1',
-      content: '患者看醫生'
+      title: 'Step 1:',
+      subTitle: '患者看醫生',
+      contents: ['藥物交互作用通知', '醫生開立處方箋(1/3)', '患者醫療保險(扣款、投保、保期)', '保險挹注 / 健保啟動']
     },
     {
       title: 'Step 2',
-      content: '醫生看病歷資料(?)與過敏資料(3的資料)，開處方箋給患者(資料更新區塊鏈)'
+      subTitle: '患者找藥師',
+      contents: ['區塊鏈主動推播訊息', '處方箋(2/3)領取藥物', '更新/取得 藥物回收清單']
     },
     {
       title: 'Step 3',
-      content: '患者拿到處方箋或回饋醫生更新過敏資料(上傳日期、過敏內容(藥物名)、上傳醫生、上傳機構、電話、地址) (資料更新區塊鏈)'
+      subTitle: '健保局獎勵回收藥物',
+      contents: ['隨機抽獎並給予唯一患者獎勵']
     },
-    {
-      title: 'Step 4',
-      content: '患者拿處方箋找藥師拿藥，資料藉由藥師上傳到健保局(資料更新區塊鏈?)'
-    },
-    {
-      title: 'Step 5',
-      content: '患者藥物回收，健保局抽出回收者並予與獎勵(以區塊鏈發送獎金制患者錢包)'
-    },
+    // {
+    //   title: 'Step 4',
+    //   subTitle: '患者看醫生',
+    //   contents: ['患者拿處方箋找藥師拿藥，資料藉由藥師上傳到健保局(資料更新區塊鏈?)']
+    // },
+    // {
+    //   title: 'Step 5',
+    //   subTitle: '患者看醫生',
+    //   contents: ['患者藥物回收，健保局抽出回收者並予與獎勵(以區塊鏈發送獎金制患者錢包)']
+    // },
   ];
   // ng-carousel
   carouselImages: any = [];
   // current roles (name, define, path)
-  currentRole: any = {
-    name: '患者',
-    define: '患者 - 是指醫療服務的接受者，需要醫生和護理人員進行治療的人',
-    path: 'assets/img/SVG/39.svg'
-  };
+  // currentRole: any = {
+  //   name: '患者',
+  //   define: '患者 - 是指醫療服務的接受者，需要醫生和護理人員進行治療的人',
+  //   path: 'assets/img/SVG/39.svg'
+  // };
+  // roles
+  roles: any = [
+    {
+      name: '曹操(患者)',
+      define: '醫療服務的接受者，需要醫生和護理人員進行治療的人',
+      path: 'assets/img/SVG/39.svg'
+    },
+    {
+      name: '神農氏(藥師)',
+      define: '提供藥物知識及藥事服務的專業人員',
+      path: 'assets/img/SVG/06.svg'
+    },
+    {
+      name: '華佗(醫生)',
+      define: '又稱醫師，在中國古代稱大夫或郎中',
+      path: 'assets/img/SVG/49.svg'
+    }
+  ];
   @ViewChild('carousel') _carousel: ElementRef;
   // Typeahead
   states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
@@ -99,6 +123,18 @@ export class Dashboard {
     'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island',
     'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Islands', 'Virginia',
     'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
+//     [
+//   {"Name": "MAFARIN TABLETS 5 MG 脈化寧錠5毫克", "Amount": "5 MG", "Price": 5},
+//   {"Name": "AMIORONE TAB. 200MG (AMIODARONE) 艾歐隆錠２００公絲 (艾米達隆)", "Amount": "200 MG", "Price": 14},
+//   {"Name": "ANPO TABLETS 10MG 安寶錠１０公絲 (鹽酸立特林)", "Amount": "10 MG", "Price": 13},
+//   {"Name": "ACTRAPID 100 I.U./ML 愛速基因人體胰島素", "100 IU", "Amount": "Price": 124},
+//   {"Name": "M.V.C. 9+3 蒙多維命９＋３注射液", "Amount": "10 ML", "Price": 98},
+//   {"Name": "MABTHERA SOLUTION FOR IV INFUSION 莫須瘤 注射劑", "Amount": "10 ML", "Price": 8800},
+//   {"Name": "MACRABONE INJECTION 瑪樂蒙注射液", "Amount": "2 ML", "Price": 20},
+//   {"Name": "NOREPINE INJECTION 心復壓注射劑", "Amount": "4 ML", "Price": 118},
+//   {"Name": "MIXTARD 30 密斯它３０胰島素注射液", "Amount": "1 KIU", "Price": 300},
+//   {"Name": "MITOMYCIN-C KYOWA 10MG 排多癌注射劑１０公絲 '協和'", "Amount": "10 MG", "Price": 555}
+// ]
   model: any;
   // 通知 訊息 list
   notifications: Array<Object>;
@@ -126,9 +162,9 @@ export class Dashboard {
       this.carouselImages.push(`assets/img/health${i}.jpg`);
     }
     // get currentRoles
-    this._state.subscribe('menu.currentRole', (currentRole) => {
-      this.currentRole = currentRole;
-    });
+    // this._state.subscribe('menu.currentRole', (currentRole) => {
+    //   this.currentRole = currentRole;
+    // });
     // notifications
     this._state.subscribe('menu.notifications', (notifications) => {
       this.notifications = notifications;
@@ -139,6 +175,16 @@ export class Dashboard {
     });
   }
 
+  ngOnInit() {
+    // this._dashboardService.getBalances()
+    // this._dashboardService.getPrescriptions()
+    this._dashboardService.getTxs()
+      .subscribe(
+        (res) => console.log(res)
+      );
+
+  }
+
   // set notifications role
   setNotifications() {
     let msg = {
@@ -146,7 +192,6 @@ export class Dashboard {
       text: this.notificationData,
       time: '3 hrs ago'
     };
-    console.log('setNotifications', this.notifications, msg);
     if (!this.notifications) { this.notifications = []; }
     this.notifications.push(msg);
     this._state.notifyDataChanged('menu.notifications', this.notifications);
