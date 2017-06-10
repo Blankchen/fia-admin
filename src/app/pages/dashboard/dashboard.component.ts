@@ -100,6 +100,13 @@ export class Dashboard {
     'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Islands', 'Virginia',
     'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
   model: any;
+  // 通知 訊息 list
+  notifications: Array<Object>;
+  messages: Array<Object>;
+  // 通知 訊息 model one data
+  notificationData: any;
+  messagesData: any;
+
   // Typeahead
   search = (text$: Observable<string>) =>
     text$
@@ -108,7 +115,10 @@ export class Dashboard {
       .map(term => term.length < 1 ? []
         : this.states.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1).slice(0, 10));
 
-
+  // constructor(private _baMsgCenterService:BaMsgCenterService) {
+  //   this.notifications = this._baMsgCenterService.getNotifications();
+  //   this.messages = this._baMsgCenterService.getMessages();
+  // }
 
   constructor(private _dashboardService: DashboardService, private _state: GlobalState) {
     // init ng-bootstrap carouse images
@@ -119,16 +129,55 @@ export class Dashboard {
     this._state.subscribe('menu.currentRole', (currentRole) => {
       this.currentRole = currentRole;
     });
+    // notifications
+    this._state.subscribe('menu.notifications', (notifications) => {
+      this.notifications = notifications;
+    });
+    // messages
+    this._state.subscribe('menu.messages', (messages) => {
+      this.messages = messages;
+    });
   }
 
   // set notifications role
-  setNotifications(role: any) {
-    this._state.notifyDataChanged('menu.notifications', this.currentRole);
+  setNotifications() {
+    let msg = {
+      // msg.image ||  (msg.name)
+      text: this.notificationData,
+      time: '3 hrs ago'
+    };
+    console.log('setNotifications', this.notifications, msg);
+    if (!this.notifications) { this.notifications = []; }
+    this.notifications.push(msg);
+    this._state.notifyDataChanged('menu.notifications', this.notifications);
   }
 
   // set messages role
-  setMessages(role: any) {
-    this._state.notifyDataChanged('menu.messages', this.currentRole);
+  setMessages() {
+    let msg = {
+      // msg.image ||  (msg.name)
+      text: this.messagesData,
+      time: '2 hrs ago'
+    };
+    if (!this.messages) { this.messages = []; }
+    this.messages.push(msg);
+    this._state.notifyDataChanged('menu.messages', this.messages);
+  }
+
+  // progress bar 1~N
+  seProgressForward() {
+    this.progressStep += 1;
+    if (this.progressStep > this.progressBar.length) {
+      this.progressStep = 1;
+    }
+  }
+
+  // progress bar 1~N
+  seProgressBackward() {
+    this.progressStep -= 1;
+    if (this.progressStep < 1) {
+      this.progressStep = this.progressBar.length;
+    }
   }
 
 

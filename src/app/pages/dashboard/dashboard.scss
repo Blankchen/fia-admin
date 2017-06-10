@@ -30,6 +30,15 @@
   }
 }
 
+// progress button
+.progress-btn {
+  height: 30px;
+  /* position: absolute; */
+  margin: 5px;
+  /* width: 93%; */
+  /* margin-top: 41px; */
+  z-index: 10;
+}
 
 //  source: https://github.com/tcavalin/stepProgress
 @mixin shadow($h-shadow, $v-shadow: '', $blur: '', $spread: '', $color: '', $inset: '', $important: '') {

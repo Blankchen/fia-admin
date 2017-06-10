@@ -1,8 +1,12 @@
-<div class="loader" [ngClass]="state">
-  <svg class="spinner" width="43px" height="43px" viewBox="0 0 44 44">
-    <circle class="path" fill="none" stroke-width="4" stroke-linecap="round" cx="22" cy="22" r="20"></circle>
-  </svg>
-</div>
-<div class="title">
-  <h2>{{ title }}</h2>
-</div>
+<ng-template ngFor let-node [ngForOf]="nodes" let-i="index">
+  <div class="loader" [ngClass]="{ 'loading': node.isLoad, 'success': !node.isLoad }">
+    <svg class="spinner" width="43px" height="43px" viewBox="0 0 44 44">
+      <circle class="path" fill="none" stroke-width="4" stroke-linecap="round" cx="22" cy="22" r="20"></circle>
+    </svg>
+  </div>
+  <div class="title">
+    <h2>{{ node.title }}</h2>
+  </div>
+</ng-template>
+
+<button type="" (click)="setRandomLoad()">test</button>
