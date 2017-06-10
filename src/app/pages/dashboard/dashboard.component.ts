@@ -121,5 +121,15 @@ export class Dashboard {
     });
   }
 
+  // set notifications role
+  setNotifications(role: any) {
+    this._state.notifyDataChanged('menu.notifications', this.currentRole);
+  }
+
+  // set messages role
+  setMessages(role: any) {
+    this._state.notifyDataChanged('menu.messages', this.currentRole);
+  }
+
 
 }

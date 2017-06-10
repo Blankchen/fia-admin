@@ -3,12 +3,14 @@ import { CommonModule }  from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AppTranslationModule } from '../../app.translation.module';
 import { NgaModule } from '../../theme/nga.module';
-import { NgbCarouselModule, NgbTypeaheadModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCarouselModule, NgbTypeaheadModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { Dashboard } from './dashboard.component';
 import { routing }       from './dashboard.routing';
 
 import { PopularApp } from './popularApp';
+import { Modals } from './modals';
+import { DefaultModal } from './modals/default-modal/default-modal.component';
 import { PieChart } from './pieChart';
 import { TrafficChart } from './trafficChart';
 import { UsersMap } from './usersMap';
@@ -40,10 +42,13 @@ import { DashboardService } from './dashboard.service';
     NgaModule,
     NgbCarouselModule,
     NgbTypeaheadModule,
+    NgbModalModule,
     routing
   ],
   declarations: [
     PopularApp,
+    Modals,
+    DefaultModal,
     PieChart,
     TrafficChart,
     UsersMap,
@@ -57,6 +62,9 @@ import { DashboardService } from './dashboard.service';
     ContextualTable,
     // loader
     Loader
+  ],
+  entryComponents: [
+    DefaultModal
   ],
   providers: [
     CalendarService,

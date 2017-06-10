@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 
 import {BaMsgCenterService} from './baMsgCenter.service';
+import {GlobalState} from '../../../global.state';
 
 @Component({
   selector: 'ba-msg-center',
@@ -13,9 +14,19 @@ export class BaMsgCenter {
   public notifications:Array<Object>;
   public messages:Array<Object>;
 
-  constructor(private _baMsgCenterService:BaMsgCenterService) {
-    this.notifications = this._baMsgCenterService.getNotifications();
-    this.messages = this._baMsgCenterService.getMessages();
+  // constructor(private _baMsgCenterService:BaMsgCenterService) {
+  //   this.notifications = this._baMsgCenterService.getNotifications();
+  //   this.messages = this._baMsgCenterService.getMessages();
+  // }
+  constructor(private _state:GlobalState) {
+    // notifications
+    this._state.subscribe('menu.notifications', (notifications) => {
+      this.notifications = notifications;
+    });
+    // messages
+    this._state.subscribe('menu.messages', (messages) => {
+      this.messages = messages;
+    });
   }
 
 }
