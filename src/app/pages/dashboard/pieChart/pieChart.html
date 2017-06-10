@@ -1,14 +1,29 @@
 <div class="row pie-charts">
 
-  <ba-card *ngFor="let chart of charts" class="pie-chart-item-container col-xlg-3 col-lg-3 col-md-6 col-sm-12 col-12">
+  <!--<ba-card class="pie-chart-item-container col-xlg-3 col-lg-3 col-md-6 col-sm-12 col-12">
 
     <div class="pie-chart-item">
       <div class="chart" [attr.data-rel]="chart.color" data-percent="60">
         <span class="percent"></span>
       </div>
       <div class="description">
+        <div translate>{{ chart[0].description }}</div>
+        <div class="description-stats">{{ chart[0].stats }}</div>
+      </div>
+      <i class="chart-icon i-{{ chart[0].icon }}"></i>
+    </div>
+
+  </ba-card>-->
+
+  <ba-card *ngFor="let chart of charts" class="pie-chart-item-container col-12">
+
+    <div class="pie-chart-item">
+      <div class="chart" [attr.data-rel]="chart.color" data-percent="100">
+        <span class="percent">{{ Score }}</span>
+      </div>
+      <div class="description">
         <div translate>{{ chart.description }}</div>
-        <div class="description-stats">{{ chart.stats }}</div>
+        <div class="description-stats">{{ Score }}</div>
       </div>
       <i class="chart-icon i-{{ chart.icon }}"></i>
     </div>

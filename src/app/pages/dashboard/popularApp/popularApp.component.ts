@@ -21,6 +21,10 @@ export class PopularApp {
     } else {
       this.fixBalance = false;
     }
+    // else if (window.scrollY < 70) {
+    //   this.fixBalance = 1;
+    // }
+
   }
 
 }

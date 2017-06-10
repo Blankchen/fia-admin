@@ -1,25 +1,25 @@
 <div class="horizontal-scroll">
   <!--處方箋ID-->
   <div class="row">
-    <h5 class="list-header text-center">處方箋樣式(標準/連續):</h5>
+    <h5 class="list-header text-center">處方箋樣式({{ tableData?.Type==="cont"? '標準':'連續' }} ):</h5>
     <div class="col-3">
       <ul class="blur">
-        <li><span>醫師: XXX</span></li>
-        <li><span>姓名: 病人</span></li>
+        <li><span>醫師: 華佗(醫生)</span></li>
+        <li><span>姓名: 曹操(患者)</span></li>
       </ul>
     </div>
     <div class="col-5">
       <ul class="blur">
-        <li><span>本處方可調劑三次，本次為第Ｎ次</span></li>
-        <li><span>下次調劑日期:(日期)</span></li>
-        <li><span>總額:</span></li>
+        <li><span>本處方可調劑三次，本次為第{{ tableData?.RemainTimes }}次</span></li>
+        <li><span>下次調劑日期:({{ tableData?.NextDates | json }})</span></li>
+        <li><span>總額:{{ tableData?.PrescriptionPrice.HealthInsurancePrice+tableData?.PrescriptionPrice.OwnExpensePrice }}</span></li>
       </ul>
     </div>
     <div class="col-4">
       <ul class="blur">
-        <li><span>健保給付:</span></li>
-        <li><span>保險挹注:</span></li>
-        <li><span>自付額:</span></li>
+        <li><span>健保給付: {{ tableData?.PrescriptionPrice.HealthInsurancePrice }}</span></li>
+        <li><span>保險挹注: ??</span></li>
+        <li><span>自付額:  {{ tableData?.PrescriptionPrice.OwnExpensePrice }}</span></li>
       </ul>
     </div>
   </div>
@@ -36,13 +36,11 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let item of tableData">
-      <td class="table-id">{{ item.id }}</td>
-      <td>{{ item.firstName }}</td>
-      <td>{{ item.lastName }}</td>
-      <td>
-        <button ngClass="{status-button btn btn-xs btn-{{ item.status }}">{{ item.status }}</button>
-      </td>
+    <tr *ngFor="let item of tableData?.MedicineList; let i=index">
+      <td class="table-id">{{ i}}</td>
+      <td class="table-id">{{ item.Name}}</td>
+      <td>{{ item.Amount }}</td>
+      <td>{{ item.Memo }}</td>
     </tr>
     </tbody>
   </table>

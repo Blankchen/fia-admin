@@ -6,6 +6,8 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class DashboardService {
   mycc: string = 'mycc';
+  //  production
+  // mycc: string = '7aeecbf5262d43570e27afc5e5acf3ddffc9c5bdf174d3a31f7d6201593718e9';
 
   // 6/8
   // 最後實做成這樣
@@ -38,7 +40,6 @@ export class DashboardService {
     let userID = '';
     let url = 'http://192.168.1.157:5000/chaincode/query';
     // this.createAuthorizationHeader(headers, userID);
-    // 可能不用 JSON.stringify(object)
     let body = {
       // invokeRequest
       "queryRequest": {
@@ -63,27 +64,143 @@ export class DashboardService {
     // ]
   }
 
-  // 處方箋 Prescription (單個就JsonObject, 多個就JsonArray)
-  getPrescriptions(): Observable<Response> {
+  // 檢查處方箋 只有建立處方箋前才要檢查
+  checkPrescriptions(MedicineList: any): Observable<Response> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let userID = '';
     let url = 'http://192.168.1.157:5000/chaincode/query';
+    // console.log('---', MedicineList);
+    let prescriptions = {
+      "Type": "cont",
+      "RemainTimes": 3,
+      "PrescriptionPrice": {
+        "HealthInsurancePrice": "500",
+        "OwnExpensePrice": "100"
+      },
+      // "MedicineList": MedicineList,
+      // "MedicineList": [{
+      //   "Name": "SLEEP_NAO",
+      //   "Amount": "30",
+      //   "Memo": "EAT A LOT"
+      // }]
+      "DueDate": "2019-01-01"
+    };
+    prescriptions["MedicineList"] = MedicineList;
     // this.createAuthorizationHeader(headers, userID);
-    // 可能不用 JSON.stringify(object)
     let body = {
       "queryRequest": {
         "chaincodeID": this.mycc,
-        "fcn": "GetPrescription",
-        // patient index 0, 1/3 Prescription
-        "args": ["pat_0_1"]
+        "fcn": "CheckPrescription",
+        // "$json/p1" <= 處方箋 JSON to string
+        // "pat_0" <= 病人編號
+        // "drpat_0" <= 醫生編號
+        "args": [JSON.stringify(prescriptions), "pat_0", "drpat_0"]
       },
       "user": {
         "enrollID": "lukas",
         "enrollSecret": "87654321"
       }
     };
+    // "$json/p1" <= 處方箋 JSON to string
+    // "$json/p1" JSON <= HealthInsurancePrice/5 = OwnExpensePrice,
     return this.http.post(url, body, { headers })
       .map(res => JSON.parse(res.json().sdkResult));
+    // SLEEP_NAO_rec: "the drug have conflict with other prescprition"
+    // 藥物名稱：衝突理由 （只有衝突會顯示）
+  }
+
+  // 建立處方箋 前 需要檢查處方箋
+  createPrescriptions(MedicineList: any) {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let userID = '';
+    let url = 'http://192.168.1.157:5000/chaincode/invoke';
+    let prescriptions = {
+      "Type": "cont",
+      "RemainTimes": 3,
+      "PrescriptionPrice": {
+        "HealthInsurancePrice": "500",
+        "OwnExpensePrice": "100"
+      },
+      // "MedicineList": [{
+      //   "Name": "SLEEP_NAO",
+      //   "Amount": "30",
+      //   "Memo": "EAT A LOT"
+      // }],
+      "DueDate": "2019-01-01"
+    };
+    prescriptions["MedicineList"] = MedicineList;
+    let body = {
+      "invokeRequest": {
+        "chaincodeID": this.mycc,
+        "fcn": "CheckPrescription",
+        // "$json/p1" <= 處方箋 JSON to string
+        // "pat_0" <= 病人編號
+        // "drpat_0" <= 醫生編號
+        "args": [JSON.stringify(prescriptions), "pat_0", "drpat_0"]
+      },
+      "user": {
+        "enrollID": "lukas",
+        "enrollSecret": "87654321"
+      }
+    };
+    // "$json/p1" <= 處方箋 JSON to string
+    // "$json/p1" JSON <= HealthInsurancePrice/5 = OwnExpensePrice,
+    return this.http.post(url, body, { headers });
+    // .map(res => JSON.parse(res.json().sdkResult));
+  }
+
+  // 評等紀錄
+  getGetDReb(): Observable<Response> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let url = 'http://192.168.1.157:5000/chaincode/query';
+    let body = {
+      "queryRequest": {
+        "chaincodeID": this.mycc,
+        "fcn": "GetDrRep",
+        "args": ["drpat_0"]
+      },
+      "user": {
+        "enrollID": "lukas",
+        "enrollSecret": "87654321"
+      }
+    };
+    // "$json/p1" <= 處方箋 JSON to string
+    // "$json/p1" JSON <= HealthInsurancePrice/5 = OwnExpensePrice,
+    return this.http.post(url, body, { headers })
+      .map(res => JSON.parse(res.json().sdkResult));
+  }
+
+  // 處方箋 Prescription (單個就JsonObject, 多個就JsonArray)
+  getPrescriptions(): Observable<Response> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let userID = '';
+    let url = 'http://192.168.1.157:5000/chaincode/query';
+    // this.createAuthorizationHeader(headers, userID);
+    let body = {
+      "queryRequest": {
+        "chaincodeID": this.mycc,
+        "fcn": "ListPrescription",
+        // patient index 0, 1/3 Prescription
+        // "args": ["pat_0_1"]
+        "args": ["pat_0", "", "0", "true", "30", "", "", "false"]
+      },
+      "user": {
+        "enrollID": "lukas",
+        "enrollSecret": "87654321"
+      }
+    };
+    // List sort 找最後一筆
+    return this.http.post(url, body, { headers })
+      .map((res) => {
+        let list = JSON.parse(res.json().sdkResult);
+        return list;
+        // list.sort((a, b) => {
+        //   if (a.UpdateTime < b.UpdateTime) return -1;
+        //   if (a.UpdateTime > b.UpdateTime) return 1;
+        //   return 0;
+        // });
+        // return list[list.length-1];
+      });
     // [{
     //   "DoctorID": "dr_1",
     //   "PatientID": "pat_1",
@@ -113,14 +230,71 @@ export class DashboardService {
     // }, ...]
   }
 
+  updatePrescriptions(prescription: any) {
+     let headers = new Headers({ 'Content-Type': 'application/json' });
+    let userID = '';
+    let url = 'http://192.168.1.157:5000/chaincode/invoke';
+    // this.createAuthorizationHeader(headers, userID);
+    let body = {
+      "invokeRequest": {
+        "chaincodeID": this.mycc,
+        "fcn": "ReceiveMedicine",
+        "args": [prescription.PatientID , prescription.PrescriptionID , "pharm_0"]
+      },
+      "user": {
+        "enrollID": "lukas",
+        "enrollSecret": "87654321"
+      }
+    };
+    // List sort 找最後一筆
+    return this.http.post(url, body, { headers });
+  }
+
+  // Recycle 藥物回收
+  createRecycles(): Observable<Response> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let userID = '';
+    let url = 'http://192.168.1.157:5000/chaincode/invoke';
+    // this.createAuthorizationHeader(headers, userID);
+    let medicineList = {
+      "MedicineList": [{
+        "Name": "SLEEP_NAO",
+        "Amount": "30",
+        "Memo": "EAT A LOT"
+      }]
+    };
+    let body = {
+      "invokeRequest": {
+        "chaincodeID": this.mycc,
+        "fcn": "RecycleMedicine",
+        "args": ["pharm_0", "pat_0", JSON.stringify(medicineList)]
+      },
+      "user": {
+        "enrollID": "lukas",
+        "enrollSecret": "87654321"
+      }
+    };
+    return this.http.post(url, body, { headers })
+      .map(res => JSON.parse(res.json().sdkResult));
+  }
+
   // Recycle 藥物回收
   getRecycles(): Observable<Response> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let userID = '';
     let url = 'http://192.168.1.157:5000/chaincode/query';
     // this.createAuthorizationHeader(headers, userID);
-    // 可能不用 JSON.stringify(object)
-    let body = {};
+    let body = {
+      "queryRequest": {
+        "chaincodeID": this.mycc,
+        "fcn": "ListRecycleInfo",
+        "args": ["pat_0"]
+      },
+      "user": {
+        "enrollID": "lukas",
+        "enrollSecret": "87654321"
+      }
+    };
     return this.http.post(url, body, { headers })
       .map(res => JSON.parse(res.json().sdkResult));
     // {
@@ -139,12 +313,12 @@ export class DashboardService {
   }
 
   // Tx (給藥的時候產生) (單個就JsonObject, 多個就JsonArray)
+  // 給藥師核銷 健保 保險公司 藥局
   getTxs(): Observable<Response> {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let userID = '';
     let url = 'http://192.168.1.157:5000/chaincode/query';
     // this.createAuthorizationHeader(headers, userID);
-    // 可能不用 JSON.stringify(object)
     let body = {
       "queryRequest": {
         "chaincodeID": this.mycc,
@@ -180,6 +354,31 @@ export class DashboardService {
     //   "InsuranceID": "ins_pat_1",
     //   "CreateTime": "2017-06-15T12:59:59.000+0800"
     // },...]
+  }
+
+  // 建立保險 沒有get
+  createInsure() {
+    // 扣患者 10000 之後扣保險的錢 before create Prescription
+    // Tx "InsuranceID": "ins_pat_1",
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let userID = '';
+    let url = 'http://192.168.1.157:5000/chaincode/invoke';
+    // this.createAuthorizationHeader(headers, userID);
+    let body = {
+      "invokeRequest": {
+        "chaincodeID": this.mycc,
+        "fcn": "CreateInsure",
+        "args": ["pat_0"]
+      },
+      "user": {
+        "enrollID": "lukas",
+        "enrollSecret": "87654321"
+      }
+    };
+
+    return this.http.post(url, body, { headers });
+      // .map(res => JSON.parse(res.json().sdkResult));
+
   }
 
 

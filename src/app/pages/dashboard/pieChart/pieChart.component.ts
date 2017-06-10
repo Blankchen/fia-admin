@@ -1,6 +1,6 @@
-import {Component} from '@angular/core';
+import { Component, Input, DoCheck } from '@angular/core';
 
-import {PieChartService} from './pieChart.service';
+import { PieChartService } from './pieChart.service';
 
 import 'easy-pie-chart/dist/jquery.easypiechart.js';
 
@@ -11,6 +11,8 @@ import 'easy-pie-chart/dist/jquery.easypiechart.js';
 })
 // TODO: move easypiechart to component
 export class PieChart {
+  oldScore: number;
+  @Input() Score: number;
 
   public charts: Array<Object>;
   private _init = false;
@@ -19,10 +21,17 @@ export class PieChart {
     this.charts = this._pieChartService.getData();
   }
 
+  ngDoCheck() {
+    if (this.Score !== this.oldScore) {
+      this.oldScore = this.Score;
+      this._loadPieCharts();
+    }
+  }
+
   ngAfterViewInit() {
     if (!this._init) {
       this._loadPieCharts();
-      this._updatePieCharts();
+      // this._updatePieCharts();
       this._init = true;
     }
   }
@@ -33,8 +42,9 @@ export class PieChart {
       let chart = jQuery(this);
       chart.easyPieChart({
         easing: 'easeOutBounce',
-        onStep: function (from, to, percent) {
-          jQuery(this.el).find('.percent').text(Math.round(percent));
+        onStep: (from, to, percent) => {
+          jQuery(this.el).find('.chart').attr('data-percent', this.Score);
+          // jQuery(this.el).find('.percent').text(Math.round(percent));
         },
         barColor: jQuery(this).attr('data-rel'),
         trackColor: 'rgba(0,0,0,0)',
@@ -50,7 +60,7 @@ export class PieChart {
   private _updatePieCharts() {
     let getRandomArbitrary = (min, max) => { return Math.random() * (max - min) + min; };
 
-    jQuery('.pie-charts .chart').each(function(index, chart) {
+    jQuery('.pie-charts .chart').each(function (index, chart) {
       jQuery(chart).data('easyPieChart').update(getRandomArbitrary(55, 90));
     });
   }

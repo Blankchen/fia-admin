@@ -5,17 +5,20 @@
     <h6>{{ currentRole?.define }}</h6>
   </div>
 </div>
-<div class="popular-app-cost row" [ngClass]="{ 'fix-balance': fixBalance }">
-  <div class="col-9" translate>{{ currentRole?.name }}錢包餘額:</div>
-  <div class="col-3 text-right">
-    175$
+<!--style="display: block; z-index:10000"-->
+<div class="popular-app-cost row" [ngClass]="{ 'fix-balance-top': fixBalance }"
+  [ngStyle]="{'background-color': currentRole.isInsure }">
+    <!--[style.backgroundColor]="{{ currentRole.isInsure? 'yellow':'' }}">-->
+  <div class="col-8" translate>{{ currentRole?.name }}錢包餘額:</div>
+  <div class="col-4 text-right">
+    {{ currentRole?.balance }}
   </div>
 </div>
-<div class="popular-app-info row">
+<!--<div class="popular-app-info row">
   <div class="col-12 text-center">
     <contextual-table></contextual-table>
   </div>
-  <!--
+
   <div class="col-4 text-left">
     <div class="info-label" translate>{{'dashboard.popular_app.total_visits'}}</div>
     <div>47,512</div>
@@ -27,5 +30,5 @@
   <div class="col-4 text-right">
     <div class="info-label" translate>{{'dashboard.popular_app.sales'}}</div>
     <div>2,928</div>
-  </div>-->
-</div>
+  </div>
+</div>-->

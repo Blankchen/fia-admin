@@ -14,7 +14,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
   styleUrls: ['./dashboard.scss'],
   templateUrl: './dashboard.html'
 })
-export class Dashboard implements OnInit{
+export class Dashboard implements OnInit {
   /**
    * 50 icons overview in assets/img/SVG-README.svg
    * http://www.streamlineicons.com/
@@ -64,17 +64,17 @@ export class Dashboard implements OnInit{
     {
       title: 'Step 1:',
       subTitle: '患者看醫生',
-      contents: ['藥物交互作用通知', '醫生開立處方箋(1/3)', '患者醫療保險(扣款、投保、保期)', '保險挹注 / 健保啟動']
+      contents: ['＃藥物交互作用/重複 通知', '醫生開立處方箋(1/3)', '患者醫療保險(扣款、投保、保期)', '保險挹注 / 健保啟動']
     },
     {
       title: 'Step 2',
       subTitle: '患者找藥師',
-      contents: ['區塊鏈主動推播訊息', '處方箋(2/3)領取藥物', '更新/取得 藥物回收清單']
+      contents: ['＃區塊鏈主動推播處方箋訊息', '處方箋(2/3)領取藥物', '自動區塊鏈稽核/錢包變動']
     },
     {
       title: 'Step 3',
-      subTitle: '健保局獎勵回收藥物',
-      contents: ['隨機抽獎並給予唯一患者獎勵']
+      subTitle: '健保局獎勵 回收藥物',
+      contents: ['更新/取得 藥物回收清單', '擁有所有處方箋/回收藥物資料', '1.1評等機制']
     },
     // {
     //   title: 'Step 4',
@@ -99,43 +99,53 @@ export class Dashboard implements OnInit{
   roles: any = [
     {
       name: '曹操(患者)',
+      balance: 0,
+      isInsure: '#00abff',
       define: '醫療服務的接受者，需要醫生和護理人員進行治療的人',
       path: 'assets/img/SVG/39.svg'
     },
     {
       name: '神農氏(藥師)',
+      balance: 0,
+      isInsure: '#00abff',
       define: '提供藥物知識及藥事服務的專業人員',
       path: 'assets/img/SVG/06.svg'
     },
     {
-      name: '華佗(醫生)',
-      define: '又稱醫師，在中國古代稱大夫或郎中',
+      name: '健保局',
+      balance: 0,
+      isInsure: '#00abff',
+      define: '衛生福利部中央健康保險署',
       path: 'assets/img/SVG/49.svg'
     }
   ];
   @ViewChild('carousel') _carousel: ElementRef;
   // Typeahead
-  states = ['Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas', 'California', 'Colorado',
-    'Connecticut', 'Delaware', 'District Of Columbia', 'Federated States Of Micronesia', 'Florida', 'Georgia',
-    'Guam', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine',
-    'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana',
-    'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
-    'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon', 'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island',
-    'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Islands', 'Virginia',
-    'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'];
-//     [
-//   {"Name": "MAFARIN TABLETS 5 MG 脈化寧錠5毫克", "Amount": "5 MG", "Price": 5},
-//   {"Name": "AMIORONE TAB. 200MG (AMIODARONE) 艾歐隆錠２００公絲 (艾米達隆)", "Amount": "200 MG", "Price": 14},
-//   {"Name": "ANPO TABLETS 10MG 安寶錠１０公絲 (鹽酸立特林)", "Amount": "10 MG", "Price": 13},
-//   {"Name": "ACTRAPID 100 I.U./ML 愛速基因人體胰島素", "100 IU", "Amount": "Price": 124},
-//   {"Name": "M.V.C. 9+3 蒙多維命９＋３注射液", "Amount": "10 ML", "Price": 98},
-//   {"Name": "MABTHERA SOLUTION FOR IV INFUSION 莫須瘤 注射劑", "Amount": "10 ML", "Price": 8800},
-//   {"Name": "MACRABONE INJECTION 瑪樂蒙注射液", "Amount": "2 ML", "Price": 20},
-//   {"Name": "NOREPINE INJECTION 心復壓注射劑", "Amount": "4 ML", "Price": 118},
-//   {"Name": "MIXTARD 30 密斯它３０胰島素注射液", "Amount": "1 KIU", "Price": 300},
-//   {"Name": "MITOMYCIN-C KYOWA 10MG 排多癌注射劑１０公絲 '協和'", "Amount": "10 MG", "Price": 555}
-// ]
-  model: any;
+  states = ['MAFARIN TABLETS', 'AMIORONE TAB', 'ANPO TABLETS', 'ACTRAPID',
+    'M.V.C. 9+3', 'MABTHERA SOLUTION FOR IV INFUSION', '"MABTHERA SOLUTION FOR IV INFUSION',
+    'MACRABONE INJECTION', 'NOREPINE INJECTION', '"MIXTARD 30', '"MITOMYCIN-C KYOWA'];
+  //     [
+  //   {"Name": "MAFARIN TABLETS 5 MG 脈化寧錠5毫克", "Amount": "5 MG", "Price": 5},
+  //   {"Name": "AMIORONE TAB. 200MG (AMIODARONE) 艾歐隆錠２００公絲 (艾米達隆)", "Amount": "200 MG", "Price": 14},
+  //   {"Name": "ANPO TABLETS 10MG 安寶錠１０公絲 (鹽酸立特林)", "Amount": "10 MG", "Price": 13},
+  //   {"Name": "ACTRAPID 100 I.U./ML 愛速基因人體胰島素", "100 IU", "Amount": "Price": 124},
+  //   {"Name": "M.V.C. 9+3 蒙多維命９＋３注射液", "Amount": "10 ML", "Price": 98},
+  //   {"Name": "MABTHERA SOLUTION FOR IV INFUSION 莫須瘤 注射劑", "Amount": "10 ML", "Price": 8800},
+  //   {"Name": "MACRABONE INJECTION 瑪樂蒙注射液", "Amount": "2 ML", "Price": 20},
+  //   {"Name": "NOREPINE INJECTION 心復壓注射劑", "Amount": "4 ML", "Price": 118},
+  //   {"Name": "MIXTARD 30 密斯它３０胰島素注射液", "Amount": "1 KIU", "Price": 300},
+  //   {"Name": "MITOMYCIN-C KYOWA 10MG 排多癌注射劑１０公絲 '協和'", "Amount": "10 MG", "Price": 555}
+  // ]
+  prescription: any;
+  prescriptionNumber: number;
+  prescriptionList: any = [];
+  prescriptionResult: any;
+  // get arrary list
+  selectPrescription: number = 0;
+  prescriptionArray: any = [];
+  // 醫師評等分數
+  docScore: number;
+  // isInteration: boolean;
   // 通知 訊息 list
   notifications: Array<Object>;
   messages: Array<Object>;
@@ -178,12 +188,120 @@ export class Dashboard implements OnInit{
   ngOnInit() {
     // this._dashboardService.getBalances()
     // this._dashboardService.getPrescriptions()
-    this._dashboardService.getTxs()
-      .subscribe(
-        (res) => console.log(res)
-      );
-
+    // this._dashboardService.getTxs()
+    // this._dashboardService.getRecycles()
+    // this._dashboardService.createInsure()
+    // this._dashboardService.checkPrescriptions()
+    // this._dashboardService.createPrescriptions()
+    // .subscribe(
+    // (res) => console.log(res)
+    // );
+    this.getBalances();
+    // test
+    this.getPrescriptions();
+    this.getGetDReb();
   }
+
+  getBalances() {
+    this._dashboardService.getBalances().subscribe(
+      (data: any) => {
+        console.log('getBalances', data[0]['UserID']);
+        // UserID: "nhi", "insc", "pharm_0", "pharm_1", "pat_0"
+        for (let balance of data) {
+          if (balance['UserID'] === 'pat_0') {
+            this.roles[0].balance = balance['Balance'];
+          } else if (balance['UserID'] === 'pharm_0') {
+            this.roles[1].balance = balance['Balance'];
+          } else if (balance['UserID'] === 'nhi') {
+            this.roles[2].balance = balance['Balance'];
+          }
+        }
+        console.log('getBalances', data, this.roles);
+      }
+    );
+  }
+
+  addPrescriptions() {
+    // console.log(this.prescription, this.prescriptionList);
+    // 'MAFARIN TABLETS', 'AMIORONE TAB'
+    // if ((this.prescription === 'MAFARIN TABLETS' && this.prescriptionList.indexOf('AMIORONE TAB') > -1)
+    //   || (this.prescription === 'AMIORONE TAB' && this.prescriptionList.indexOf('MAFARIN TABLETS') > -1)) {
+    //   this.isInteration = true;
+    // } else {
+    //   this.isInteration = false;
+    this.prescriptionList.push({
+      "Name": this.prescription,
+      "Amount": this.prescriptionNumber.toString(),
+      "Memo": "NONE"
+    });
+    // }
+  }
+
+  checkPrescriptions() {
+    console.log('checkPrescriptions', this.prescriptionList);
+    this._dashboardService.checkPrescriptions(this.prescriptionList)
+      .subscribe(
+      (data) => this.prescriptionResult = data
+      );
+  }
+
+  createPrescriptions() {
+    console.log('createPrescriptions', this.prescriptionList);
+    this._dashboardService.createPrescriptions(this.prescriptionList)
+      .subscribe(
+      (data) => {
+        console.log('createPrescriptions', data);
+        this.getPrescriptions();
+        // 醫師評等
+        setTimeout(() => {
+          this.getGetDReb();
+        }, 2000);
+
+      }
+      );
+  }
+
+  getGetDReb() {
+    this._dashboardService.getGetDReb()
+      .subscribe(
+      (score: any) => {
+        console.log('createPrescriptions', score);
+        this.docScore = score;
+      });
+  }
+
+  createInsure() {
+    this._dashboardService.createInsure()
+      .subscribe(
+      (res) => {
+        console.log('createInsure');
+        // hardcode
+        this.roles[0].isInsure = '#ed4766';
+      }
+      );
+  }
+
+  getPrescriptions() {
+    this._dashboardService.getPrescriptions()
+      .subscribe(
+      (data: any) => {
+        console.log('getPrescriptions', data);
+        // hardcode
+        this.prescriptionArray = data;
+      }
+      );
+  }
+
+  updatePrescriptions(prescription) {
+    this._dashboardService.updatePrescriptions(prescription)
+      .subscribe(
+      (data: any) => {
+        console.log('updatePrescriptions', data);
+        this.getBalances();
+      }
+      );
+  }
+
 
   // set notifications role
   setNotifications() {

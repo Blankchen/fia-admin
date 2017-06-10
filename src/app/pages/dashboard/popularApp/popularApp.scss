@@ -3,13 +3,24 @@
   height: 180px;
 }
 
-.fix-balance {
-  position: fixed;
+.fix-balance-bottom {
+  position: fixed; // top: 66px;
+  bottom: 0;
+  width: 30%;
+  background: #00abff;
+  border-color: #00abff;
+  display: contents; // opacity: 0.8;
+}
+
+.fix-balance-top {
+  position: fixed; // top: 66px;
   top: 66px;
   width: 30%;
-  background: #40daf1;
-  // opacity: 0.8;
+  background: #00abff;
+  border-color: #00abff;
+  display: contents; // opacity: 0.8;
 }
+
 
 /deep/.card.popular-app {
   &>.card-body {

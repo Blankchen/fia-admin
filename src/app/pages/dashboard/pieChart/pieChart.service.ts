@@ -12,25 +12,26 @@ export class PieChartService {
     return [
       {
         color: pieColor,
-        description: '健保給付額',
+        description: '用藥評等',
         stats: '$ 57,820',
         icon: 'person',
-      }, {
-        color: pieColor,
-        description: '保險給付額',
-        stats: '$ 89,745',
-        icon: 'money',
-      }, {
-        color: pieColor,
-        description: '收取給付額',
-        stats: '$ 178,391',
-        icon: 'face',
-      }, {
-        color: pieColor,
-        description: '電子錢包',
-        stats: '$ 32,592',
-        icon: 'refresh',
-      }
+      },
+      //  {
+      //   color: pieColor,
+      //   description: '保險給付額',
+      //   stats: '$ 89,745',
+      //   icon: 'money',
+      // }, {
+      //   color: pieColor,
+      //   description: '收取給付額',
+      //   stats: '$ 178,391',
+      //   icon: 'face',
+      // }, {
+      //   color: pieColor,
+      //   description: '電子錢包',
+      //   stats: '$ 32,592',
+      //   icon: 'refresh',
+      // }
     ];
   }
 }
