@@ -19,8 +19,11 @@
     style="flex: 0 0 100%; max-width: 100%">
 
     <div class="pie-chart-item">
-      <div class="chart" [attr.data-rel]="chart.color" data-percent="100">
-        <span class="percent">{{ Score }}</span>
+      <div class="chart" [attr.data-rel]="chart.color" [attr.data-percent]="100"
+       style="    border-style: solid;
+    border-width: 10px;
+    border-radius: 50%;">
+        <span class="percent" style="margin-top: -8px;">{{ Score }}</span>
       </div>
       <div class="description">
         <div translate>{{ chart.description }}</div>

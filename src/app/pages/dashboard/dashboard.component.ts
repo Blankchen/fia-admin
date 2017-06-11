@@ -2,6 +2,8 @@ import { Component, AfterViewInit, ViewChild, ElementRef, OnInit, HostListener }
 
 import { DashboardService } from './dashboard.service';
 import { GlobalState } from '../../global.state';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DefaultModal } from './default-modal/default-modal.component';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -180,7 +182,8 @@ export class Dashboard implements OnInit {
   //   this.messages = this._baMsgCenterService.getMessages();
   // }
 
-  constructor(private _dashboardService: DashboardService, private _state: GlobalState) {
+  constructor(private _dashboardService: DashboardService, private _state: GlobalState,
+    private modalService: NgbModal) {
     // init ng-bootstrap carouse images
     for (let i = 1; i <= 7; i++) {
       this.carouselImages.push(`assets/img/health${i}.jpg`);
@@ -262,9 +265,21 @@ export class Dashboard implements OnInit {
     console.log('checkPrescriptions', this.prescriptionList);
     this._dashboardService.checkPrescriptions(this.prescriptionList)
       .subscribe(
-      (data) => this.prescriptionResult = data
+      (data) => {
+        this.prescriptionResult = data;
+        var result=""
+        for( let index in data){
+            result += "衝突藥物:"+ index + " 衝突原因: "+data[index]
+        }
+        alert(result);
+      }
       );
   }
+
+  // lgModalShow() {
+  //   const activeModal = this.modalService.open(DefaultModal, {size: 'lg'});
+  //   activeModal.componentInstance.modalHeader = 'Large Modal';
+  // }
 
   createPrescriptions() {
     console.log('createPrescriptions', this.prescriptionList);
@@ -404,7 +419,7 @@ export class Dashboard implements OnInit {
     } else {
       this.isShowWallet = false;
     }
-    console.log('----', window.scrollY);
+    // console.log('----', window.scrollY);
   }
 
   // set notifications role
@@ -450,5 +465,22 @@ export class Dashboard implements OnInit {
     }
   }
 
+  generateArray(obj) {
+    let json = [];
+    console.log('generateArray', obj);
+    for (let item in obj) {
+      json.push({
+        key: item,
+        value: obj[item]
+      });
+    }
+    return json;
+    // return Object.keys(obj).map((key)=>{
+    //   json.push({
+    //     key: key,
+    //     value: obj[key]
+    //   }) ;
+    // });
+  }
 
 }

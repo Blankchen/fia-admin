@@ -99,15 +99,20 @@
             </table>
           </div>
         </div>
-          <!--<ol>
-          <li *ngFor="let item of prescriptionList">
-            藥品名稱:{{ item["Name"] }}*總數:{{ item["Amount"]}}
-          </li>
-        </ol>-->
 
-        <pre *ngIf="prescriptionResult" class="text-red">
+        <div *ngIf="prescriptionResult" class="text-red">
+          <h3>藥物交互作用/重複 結果</h3>
+          <ol>
+            <li *ngFor="let item of generateArray(prescriptionResult)">
+                項目名稱:{{ item.key }},衝突原因：{{ item.value }}
+            </li>
+          </ol>
+
+        </div>
+
+        <!--<pre *ngIf="prescriptionResult"
 {{ prescriptionResult | json }}
-</pre>
+</pre>-->
 
         <button type="submit" (click)="checkPrescriptions()" class="btn btn-info">檢查</button>
         <button type="submit" (click)="createPrescriptions()" class="btn btn-success">送出</button>

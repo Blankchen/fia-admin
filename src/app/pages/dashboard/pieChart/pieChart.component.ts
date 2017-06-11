@@ -12,7 +12,7 @@ import 'easy-pie-chart/dist/jquery.easypiechart.js';
 // TODO: move easypiechart to component
 export class PieChart implements OnChanges {
   oldScore: number;
-  @Input() Score: number;
+  @Input() Score: number=100;
 
   public charts: Array<Object>;
   private _init = false;
@@ -42,9 +42,9 @@ export class PieChart implements OnChanges {
       chart.easyPieChart({
         easing: 'easeOutBounce',
         onStep: (from, to, percent) => {
-          jQuery(this.el).find('.chart').data('percent', this.Score);
-          // attr('data-percent', this.Score);
-          // jQuery(this.el).find('.percent').text(Math.round(percent));
+          // jQuery(this.el).find('.chart').data('percent', 100);
+            // attr('data-percent', 100);
+          //  jQuery(this.el).find('.percent').text(100));
         },
         barColor: jQuery(this).attr('data-rel'),
         trackColor: 'rgba(0,0,0,0)',
