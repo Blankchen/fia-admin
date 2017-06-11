@@ -269,7 +269,7 @@ export class Dashboard implements OnInit {
         this.prescriptionResult = data;
         var result=""
         for( let index in data){
-            result += "衝突藥物:"+ index + " 衝突原因: "+data[index]
+            result += "[衝突藥物]:"+ index + ", [衝突原因]: "+data[index] +"\n"
         }
         alert(result);
       }
