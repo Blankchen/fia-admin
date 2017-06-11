@@ -118,7 +118,7 @@ export class DashboardService {
       "Type": "cont",
       "RemainTimes": 3,
       "PrescriptionPrice": {
-        "HealthInsurancePrice": "500",
+        "HealthInsurancePrice": (Math.round(Math.random() * 500 + 100)).toString(),
         "OwnExpensePrice": "100"
       },
       // "MedicineList": [{
@@ -231,7 +231,7 @@ export class DashboardService {
   }
 
   updatePrescriptions(prescription: any) {
-     let headers = new Headers({ 'Content-Type': 'application/json' });
+    let headers = new Headers({ 'Content-Type': 'application/json' });
     let userID = '';
     let url = 'http://192.168.1.157:5000/chaincode/invoke';
     // this.createAuthorizationHeader(headers, userID);
@@ -239,7 +239,7 @@ export class DashboardService {
       "invokeRequest": {
         "chaincodeID": this.mycc,
         "fcn": "ReceiveMedicine",
-        "args": [prescription.PatientID , prescription.PrescriptionID , "pharm_0"]
+        "args": [prescription.PatientID, prescription.PrescriptionID, "pharm_0"]
       },
       "user": {
         "enrollID": "lukas",
@@ -277,7 +277,7 @@ export class DashboardService {
       }
     };
     return this.http.post(url, body, { headers });
-      // .map(res => JSON.parse(res.json().sdkResult));
+    // .map(res => JSON.parse(res.json().sdkResult));
   }
 
   // Recycle 藥物回收
@@ -379,7 +379,7 @@ export class DashboardService {
     };
 
     return this.http.post(url, body, { headers });
-      // .map(res => JSON.parse(res.json().sdkResult));
+    // .map(res => JSON.parse(res.json().sdkResult));
 
   }
 

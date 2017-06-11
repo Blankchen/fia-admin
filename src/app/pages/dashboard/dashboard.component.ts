@@ -164,6 +164,8 @@ export class Dashboard implements OnInit {
   lineChartData: any;
   // recyclesTable
   recyclesTable: any;
+  // 顯示錢包
+  isShowWallet: boolean;
 
   // Typeahead
   search = (text$: Observable<string>) =>
@@ -274,6 +276,10 @@ export class Dashboard implements OnInit {
         // 醫師評等
         setTimeout(() => {
           this.getGetDReb();
+
+          setTimeout(() => {
+            this.getPrescriptions();
+          }, 1000);
         }, 2000);
 
       }
@@ -317,8 +323,14 @@ export class Dashboard implements OnInit {
       .subscribe(
       (data: any) => {
         console.log('updatePrescriptions', data);
-        this.getBalances();
-        this.getTxs();
+
+        setTimeout(() => {
+          this.getBalances();
+        }, 2000);
+
+        setTimeout(() => {
+          this.getTxs();
+        }, 3000);
       }
       );
   }
@@ -328,13 +340,17 @@ export class Dashboard implements OnInit {
       .subscribe(
       (data: any) => {
         console.log('createRecycles', data);
+
+        setTimeout(() => {
+          this.getRecycles();
+        }, 2000);
       }
       );
   }
 
   getRecycles() {
     this._dashboardService.getRecycles()
-    .subscribe(
+      .subscribe(
       (data: any) => {
         console.log('getRecycles', data);
         this.recyclesTable = data;
@@ -382,7 +398,13 @@ export class Dashboard implements OnInit {
     if (window.scrollY > 1000) {
       this.setNotifications('提醒您！您的處方箋領藥時間要到了，請儘速至藥局領取！關心你的健康！');
     }
-    // console.log('----', window.scrollY);
+    // 顯示下方錢包
+    if (window.scrollY > 690) {
+      this.isShowWallet = true;
+    } else {
+      this.isShowWallet = false;
+    }
+    console.log('----', window.scrollY);
   }
 
   // set notifications role

@@ -7,12 +7,15 @@
   </div>
 </div>
 <!--style="display: block; z-index:10000"-->
-<div class="popular-app-cost row" [ngClass]="{ 'fix-balance-top': fixBalance }"
-  [ngStyle]="{'background-color': currentRole.isInsure }">
+<div class="popular-app-cost row">
+<!--<div class="popular-app-cost row" [ngClass]="{ 'fix-balance-top': fixBalance }"
+  [ngStyle]="{'background-color': currentRole.isInsure }">-->
     <!--[style.backgroundColor]="{{ currentRole.isInsure? 'yellow':'' }}">-->
-  <div class="col-8" translate>{{ currentRole?.name }}:</div>
-  <div class="col-4 text-right">
-    {{ currentRole?.balance }}
+  <div class="col-12 text-center">
+    {{ currentRole?.name }}
+  </div>
+  <div class="col-12 text-center" style="margin-top: 10px;">
+    {{ currentRole?.balance | currency:'NTD':false }}
   </div>
 </div>
 <!--<div class="popular-app-info row">

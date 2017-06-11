@@ -39,6 +39,20 @@
   </div>
 </div>
 
+<!--至底錢包-->
+<div *ngIf="isShowWallet" class="row fix-balance" style="padding: 0px">
+  <div *ngFor="let role of roles; let i = index" class="col-md-3"
+    [ngClass]="{ 'fix-boarder-right': i<roles.length-1 }"
+    [ngStyle]="{'background-color': role.isInsure }">
+    <div class="col-12 text-center" style="margin: 10px;">
+      {{ role?.name }}
+    </div>
+    <div class="col-12 text-center" style="margin: 10px;">
+      {{ role?.balance | currency:'NTD':false }}
+    </div>
+  </div>
+</div>
+
 <!--Step 1-->
 <div class="row">
   <div class="col-md-8">
@@ -104,7 +118,7 @@
   </div>
 
   <div class="clearfix col-md-4">
-    <pie-chart [Score]="60"></pie-chart>
+    <pie-chart [Score]="docScore"></pie-chart>
   </div>
 
   <!--<div class="col-md4">

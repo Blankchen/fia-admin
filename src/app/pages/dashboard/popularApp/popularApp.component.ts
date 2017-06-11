@@ -13,18 +13,14 @@ export class PopularApp {
     //
   }
 
-  @HostListener('window:scroll')
-  _onWindowScroll(): void {
-    // console.log('----', window.scrollY);
-    if (window.scrollY > 600) {
-      this.fixBalance = true;
-    } else {
-      this.fixBalance = false;
-    }
-    // else if (window.scrollY < 70) {
-    //   this.fixBalance = 1;
-    // }
+  // @HostListener('window:scroll')
+  // _onWindowScroll(): void {
+  //   if (window.scrollY > 600) {
+  //     this.fixBalance = true;
+  //   } else {
+  //     this.fixBalance = false;
+  //   }
 
-  }
+  // }
 
 }
