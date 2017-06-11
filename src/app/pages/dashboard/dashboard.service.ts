@@ -5,9 +5,9 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class DashboardService {
-  mycc: string = 'mycc';
+  // mycc: string = 'mycc';
   //  production
-  // mycc: string = '7aeecbf5262d43570e27afc5e5acf3ddffc9c5bdf174d3a31f7d6201593718e9';
+  mycc: string = '005bd67a2284b954a1a905ceefd3f4a0fe4a3b3c431cc21bcaeb18e45f039d20';
 
   // 6/8
   // 最後實做成這樣
@@ -132,7 +132,7 @@ export class DashboardService {
     let body = {
       "invokeRequest": {
         "chaincodeID": this.mycc,
-        "fcn": "CheckPrescription",
+        "fcn": "CreatePrescription",
         // "$json/p1" <= 處方箋 JSON to string
         // "pat_0" <= 病人編號
         // "drpat_0" <= 醫生編號
@@ -251,18 +251,20 @@ export class DashboardService {
   }
 
   // Recycle 藥物回收
-  createRecycles(): Observable<Response> {
+  createRecycles(medicine: any) {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let userID = '';
     let url = 'http://192.168.1.157:5000/chaincode/invoke';
+    let medicineList = {};
+    medicineList["MedicineList"] = medicine;
     // this.createAuthorizationHeader(headers, userID);
-    let medicineList = {
-      "MedicineList": [{
-        "Name": "SLEEP_NAO",
-        "Amount": "30",
-        "Memo": "EAT A LOT"
-      }]
-    };
+    // let medicineList = {
+    //   "MedicineList": [{
+    //     "Name": "SLEEP_NAO",
+    //     "Amount": "30",
+    //     "Memo": "EAT A LOT"
+    //   }]
+    // };
     let body = {
       "invokeRequest": {
         "chaincodeID": this.mycc,
@@ -274,8 +276,8 @@ export class DashboardService {
         "enrollSecret": "87654321"
       }
     };
-    return this.http.post(url, body, { headers })
-      .map(res => JSON.parse(res.json().sdkResult));
+    return this.http.post(url, body, { headers });
+      // .map(res => JSON.parse(res.json().sdkResult));
   }
 
   // Recycle 藥物回收

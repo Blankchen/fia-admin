@@ -1,4 +1,4 @@
-import { Component, Input, DoCheck } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 
 import { PieChartService } from './pieChart.service';
 
@@ -10,7 +10,7 @@ import 'easy-pie-chart/dist/jquery.easypiechart.js';
   styleUrls: ['./pieChart.scss']
 })
 // TODO: move easypiechart to component
-export class PieChart {
+export class PieChart implements OnChanges {
   oldScore: number;
   @Input() Score: number;
 
@@ -21,11 +21,10 @@ export class PieChart {
     this.charts = this._pieChartService.getData();
   }
 
-  ngDoCheck() {
-    if (this.Score !== this.oldScore) {
-      this.oldScore = this.Score;
-      this._loadPieCharts();
-    }
+  ngOnChanges() {
+    this.charts = this._pieChartService.getData();
+    this.oldScore = this.Score;
+    this._loadPieCharts();
   }
 
   ngAfterViewInit() {
@@ -43,7 +42,8 @@ export class PieChart {
       chart.easyPieChart({
         easing: 'easeOutBounce',
         onStep: (from, to, percent) => {
-          jQuery(this.el).find('.chart').attr('data-percent', this.Score);
+          jQuery(this.el).find('.chart').data('percent', this.Score);
+          // attr('data-percent', this.Score);
           // jQuery(this.el).find('.percent').text(Math.round(percent));
         },
         barColor: jQuery(this).attr('data-rel'),

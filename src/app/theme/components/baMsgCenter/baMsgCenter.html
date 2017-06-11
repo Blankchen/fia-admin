@@ -18,7 +18,7 @@
         <a href>Settings</a>-->
       </div>
       <div class="msg-list">
-        <a *ngFor="let msg of notifications" href class="clearfix">
+        <a *ngFor="let msg of notifications" (click)="scrollTo()"  class="clearfix">
           <!--<div class="img-area">
             <img [ngClass]="{'photo-msg-item': !msg.image}" src="{{ ( msg.image ||  (msg.name | baProfilePicture)) }}">
           </div>-->
@@ -36,7 +36,7 @@
     </div>
   </li>
   <li class="dropdown">
-    <a href class="msg dropdown-toggle" id="msg-dd2" data-toggle="dropdown" aria-expanded="false">
+    <a class="msg dropdown-toggle" id="msg-dd2" data-toggle="dropdown" aria-expanded="false">
       <i class="fa fa-envelope-o"></i><span>{{ messages.length }}</span>
       <div class="notification-ring"></div>
     </a>
@@ -51,7 +51,7 @@
         <a href>Settings</a>-->
       </div>
       <div class="msg-list">
-        <a *ngFor="let msg of messages" href class="clearfix">
+        <a *ngFor="let msg of messages" class="clearfix test">
           <!--<div class="img-area">
             <img [ngClass]="{'photo-msg-item': !msg.image}" src="{{ ( msg.image ||  (msg.name | baProfilePicture)) }}">
           </div>-->

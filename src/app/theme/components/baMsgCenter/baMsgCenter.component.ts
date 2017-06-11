@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 
-import {BaMsgCenterService} from './baMsgCenter.service';
-import {GlobalState} from '../../../global.state';
+import { BaMsgCenterService } from './baMsgCenter.service';
+import { GlobalState } from '../../../global.state';
 
 @Component({
   selector: 'ba-msg-center',
@@ -11,8 +11,8 @@ import {GlobalState} from '../../../global.state';
 })
 export class BaMsgCenter {
 
-  public notifications:Array<Object> = [];
-  public messages:Array<Object> = [];
+  public notifications: Array<Object> = [];
+  public messages: Array<Object> = [];
 
   // constructor(private _baMsgCenterService:BaMsgCenterService) {
   //   this.notifications = this._baMsgCenterService.getNotifications();
@@ -33,6 +33,14 @@ export class BaMsgCenter {
     this._state.subscribe('menu.messages', (messages) => {
       this.messages = messages;
     });
+  }
+
+
+  // 滾至處方簽
+  scrollTo() {
+    console.log('scrollTo');
+    // window.scrollY = 2000;
+    jQuery('html, body').animate({ scrollTop: 2000 }, { duration: 2000 });
   }
 
 }

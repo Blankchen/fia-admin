@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input, OnChanges} from '@angular/core';
 
 import {LineChartService} from './lineChart.service';
 
@@ -7,7 +7,8 @@ import {LineChartService} from './lineChart.service';
   templateUrl: './lineChart.html',
   styleUrls: ['./lineChart.scss']
 })
-export class LineChart {
+export class LineChart implements OnChanges {
+  @Input() lineChartData: any;
 
   chartData:Object;
 
@@ -15,9 +16,17 @@ export class LineChart {
     this.chartData = this._lineChartService.getData();
   }
 
+  ngOnChanges() {
+    console.log('---------', this.lineChartData);
+    delete this.chartData;
+    this.chartData = this._lineChartService.getData();
+    // dataProvider
+    this.chartData['dataProvider'] = this.lineChartData;
+  }
+
   initChart(chart:any) {
     let zoomChart = () => {
-      chart.zoomToDates(new Date(2013, 3), new Date(2014, 0));
+      chart.zoomToDates(new Date(2017, 5, 1), new Date(2017, 6, 30));
     };
 
     chart.addListener('rendered', zoomChart);

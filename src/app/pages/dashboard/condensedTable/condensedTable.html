@@ -18,8 +18,8 @@
     <div class="col-4">
       <ul class="blur">
         <li><span>健保給付: {{ tableData?.PrescriptionPrice.HealthInsurancePrice }}</span></li>
-        <li><span>保險挹注: ??</span></li>
-        <li><span>自付額:  {{ tableData?.PrescriptionPrice.OwnExpensePrice }}</span></li>
+        <li><span style="color:#f95372" >保險挹注: {{ tableData?.PrescriptionPrice.OwnExpensePrice }} </span></li>
+        <li><span style="color:#f95372">自付額:  0</span></li>
       </ul>
     </div>
   </div>
@@ -37,7 +37,7 @@
     </thead>
     <tbody>
     <tr *ngFor="let item of tableData?.MedicineList; let i=index">
-      <td class="table-id">{{ i}}</td>
+      <td class="table-id">{{ i+1 }}</td>
       <td class="table-id">{{ item.Name}}</td>
       <td>{{ item.Amount }}</td>
       <td>{{ item.Memo }}</td>

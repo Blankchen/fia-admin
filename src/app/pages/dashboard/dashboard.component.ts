@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Component, AfterViewInit, ViewChild, ElementRef, OnInit, HostListener } from '@angular/core';
 
 import { DashboardService } from './dashboard.service';
 import { GlobalState } from '../../global.state';
@@ -64,7 +64,7 @@ export class Dashboard implements OnInit {
     {
       title: 'Step 1:',
       subTitle: '患者看醫生',
-      contents: ['＃藥物交互作用/重複 通知', '醫生開立處方箋(1/3)', '患者醫療保險(扣款、投保、保期)', '保險挹注 / 健保啟動']
+      contents: ['＃藥物交互作用/重複 通知', '醫生開立處方箋(1/3) 評等機制', '患者醫療保險(扣款、投保、保期)', '保險挹注 / 健保啟動']
     },
     {
       title: 'Step 2',
@@ -74,7 +74,7 @@ export class Dashboard implements OnInit {
     {
       title: 'Step 3',
       subTitle: '健保局獎勵 回收藥物',
-      contents: ['更新/取得 藥物回收清單', '擁有所有處方箋/回收藥物資料', '1.1評等機制']
+      contents: ['更新/取得 藥物回收清單', '＃處方箋/回收藥物 帳本資料']
     },
     // {
     //   title: 'Step 4',
@@ -98,17 +98,17 @@ export class Dashboard implements OnInit {
   // roles
   roles: any = [
     {
-      name: '曹操(患者)',
+      name: '患者',
       balance: 0,
       isInsure: '#00abff',
-      define: '醫療服務的接受者，需要醫生和護理人員進行治療的人',
+      define: '醫療服務的接受者',
       path: 'assets/img/SVG/39.svg'
     },
     {
-      name: '神農氏(藥師)',
+      name: '藥師',
       balance: 0,
       isInsure: '#00abff',
-      define: '提供藥物知識及藥事服務的專業人員',
+      define: '提供藥物知識及服務的專業人員',
       path: 'assets/img/SVG/06.svg'
     },
     {
@@ -116,7 +116,14 @@ export class Dashboard implements OnInit {
       balance: 0,
       isInsure: '#00abff',
       define: '衛生福利部中央健康保險署',
-      path: 'assets/img/SVG/49.svg'
+      path: 'assets/img/national-health-insurance.png'
+    },
+    {
+      name: '保險公司',
+      balance: 0,
+      isInsure: '#00abff',
+      define: '經營保險業務',
+      path: 'assets/img/SVG/12.svg'
     }
   ];
   @ViewChild('carousel') _carousel: ElementRef;
@@ -137,7 +144,8 @@ export class Dashboard implements OnInit {
   //   {"Name": "MITOMYCIN-C KYOWA 10MG 排多癌注射劑１０公絲 '協和'", "Amount": "10 MG", "Price": 555}
   // ]
   prescription: any;
-  prescriptionNumber: number;
+  prescriptionNumber: number = 1;
+  prescriptionMemo: string = '';
   prescriptionList: any = [];
   prescriptionResult: any;
   // get arrary list
@@ -152,6 +160,10 @@ export class Dashboard implements OnInit {
   // 通知 訊息 model one data
   notificationData: any;
   messagesData: any;
+  // line chart
+  lineChartData: any;
+  // recyclesTable
+  recyclesTable: any;
 
   // Typeahead
   search = (text$: Observable<string>) =>
@@ -200,6 +212,10 @@ export class Dashboard implements OnInit {
     // test
     this.getPrescriptions();
     this.getGetDReb();
+    // 結果
+    this.getTxs();
+    // recyclesTable
+    this.getRecycles();
   }
 
   getBalances() {
@@ -214,6 +230,8 @@ export class Dashboard implements OnInit {
             this.roles[1].balance = balance['Balance'];
           } else if (balance['UserID'] === 'nhi') {
             this.roles[2].balance = balance['Balance'];
+          } else if (balance['UserID'] === 'insc') {
+            this.roles[3].balance = balance['Balance'];
           }
         }
         console.log('getBalances', data, this.roles);
@@ -229,10 +247,11 @@ export class Dashboard implements OnInit {
     //   this.isInteration = true;
     // } else {
     //   this.isInteration = false;
+
     this.prescriptionList.push({
       "Name": this.prescription,
       "Amount": this.prescriptionNumber.toString(),
-      "Memo": "NONE"
+      "Memo": this.prescriptionMemo !== '' ? this.prescriptionMemo.toString() : ""
     });
     // }
   }
@@ -292,26 +311,92 @@ export class Dashboard implements OnInit {
       );
   }
 
+  // 跟藥師領藥
   updatePrescriptions(prescription) {
     this._dashboardService.updatePrescriptions(prescription)
       .subscribe(
       (data: any) => {
         console.log('updatePrescriptions', data);
         this.getBalances();
+        this.getTxs();
       }
       );
   }
 
+  createRecycles() {
+    this._dashboardService.createRecycles(this.prescriptionList)
+      .subscribe(
+      (data: any) => {
+        console.log('createRecycles', data);
+      }
+      );
+  }
+
+  getRecycles() {
+    this._dashboardService.getRecycles()
+    .subscribe(
+      (data: any) => {
+        console.log('getRecycles', data);
+        this.recyclesTable = data;
+      }
+      );
+  }
+
+  getTxs() {
+    this._dashboardService.getTxs()
+      .subscribe(
+      (data: any) => {
+        console.log('getTxs', data);
+        // HealthInsurancePrice
+        this.setLineChart(data);
+      }
+      );
+  }
+
+  setLineChart(data: any) {
+    let total = 2000000000;
+    let tempData = [];
+    //  { date: new Date(2012, 11), value: 0, value0: 0 },
+    var i = 0
+    for (let item of data) {
+      total -= +item.HealthInsurancePrice;
+      let t = new Date(item.CreateTime);
+      i++
+      tempData.push({
+        // new Date(item.CreateTime)
+        date: new Date(t.getFullYear(), t.getMonth(), t.getDate() + i * 2 - 10),
+        value: total,
+      });
+    }
+    // tempData.push({ date: new Date(2017, 6, 11, 12), value: total});
+    // tempData.push({ date: new Date(2017, 6, 12, 12), value: total-5000});
+    //   tempData.push({ date: new Date(2017, 6, 13, 12), value: total-10000});
+    this.lineChartData = tempData;
+    console.log('----', this.lineChartData);
+  }
+
+
+  @HostListener('window:scroll')
+  _onWindowScroll(): void {
+    // 1400
+    if (window.scrollY > 1000) {
+      this.setNotifications('提醒您！您的處方箋領藥時間要到了，請儘速至藥局領取！關心你的健康！');
+    }
+    // console.log('----', window.scrollY);
+  }
 
   // set notifications role
-  setNotifications() {
+  setNotifications(not: string) {
     let msg = {
       // msg.image ||  (msg.name)
-      text: this.notificationData,
-      time: '3 hrs ago'
+      // text: this.notificationData,
+      text: not,
+      time: new Date().toString()
     };
-    if (!this.notifications) { this.notifications = []; }
-    this.notifications.push(msg);
+    if (!this.notifications) {
+      this.notifications = [];
+      this.notifications.push(msg);
+    }
     this._state.notifyDataChanged('menu.notifications', this.notifications);
   }
 

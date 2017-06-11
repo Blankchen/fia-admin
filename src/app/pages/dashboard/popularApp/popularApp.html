@@ -1,6 +1,7 @@
 <div class="popular-app-img-container">
   <div class="popular-app-img text-center">
     <img class="logo-img" src="{{ currentRole?.path }}" />
+    <br>
     <span class="logo-text">{{ currentRole?.name }}</span>
     <h6>{{ currentRole?.define }}</h6>
   </div>
@@ -9,7 +10,7 @@
 <div class="popular-app-cost row" [ngClass]="{ 'fix-balance-top': fixBalance }"
   [ngStyle]="{'background-color': currentRole.isInsure }">
     <!--[style.backgroundColor]="{{ currentRole.isInsure? 'yellow':'' }}">-->
-  <div class="col-8" translate>{{ currentRole?.name }}錢包餘額:</div>
+  <div class="col-8" translate>{{ currentRole?.name }}:</div>
   <div class="col-4 text-right">
     {{ currentRole?.balance }}
   </div>
